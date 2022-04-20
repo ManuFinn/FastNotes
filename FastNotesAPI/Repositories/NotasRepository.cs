@@ -12,9 +12,9 @@ namespace FastNotesAPI.Repositories
         {
         }
 
-        public override void Insert(Fastnotesapi entity) //Pendiente checar el DateTime para acomodarlo a la hora mexico
+        public override void Insert(Fastnotesapi entity)
         {
-            entity.Timestamp = DateTime.UtcNow;
+            entity.Timestamp = DateTime.Now.ToMexicoTime();
             base.Insert(entity);
         }
 
@@ -34,7 +34,7 @@ namespace FastNotesAPI.Repositories
 
         public override void Update(Fastnotesapi entity)
         {
-            entity.Timestamp = DateTime.UtcNow;
+            entity.Timestamp = DateTime.Now.ToMexicoTime();
             base.Update(entity);
         }
 
@@ -42,14 +42,14 @@ namespace FastNotesAPI.Repositories
         {
             if(entity.Eliminado == 0)
             {
-                entity.Timestamp = DateTime.UtcNow;
+                entity.Timestamp = DateTime.Now.ToMexicoTime();
                 entity.Eliminado = 1;
                 base.Update(entity);
             }
 
             int TTL = 64;
 
-            var fechaEliminar = DateTime.UtcNow.Subtract(TimeSpan.FromDays(TTL));
+            var fechaEliminar = DateTime.Now.ToMexicoTime().Subtract(TimeSpan.FromDays(TTL));
 
             var porEliminar = base.GetAll().Where(x=> x.Eliminado == 1 && x.Timestamp < fechaEliminar);
 
