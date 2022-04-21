@@ -21,6 +21,8 @@ namespace FastNotesAPI
             services.AddDbContext<progmovilContext>(optionsBuilder =>
             optionsBuilder.UseMySql("server = localhost; user = root; password = root; database = progmovil",
             Microsoft.EntityFrameworkCore.ServerVersion.Parse("8.0.28 - mysql")));
+
+            services.AddControllers();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -30,6 +32,8 @@ namespace FastNotesAPI
             {
                 app.UseDeveloperExceptionPage();
             }
+
+            app.UseRequestLocalization("es-MX");
 
             app.UseRouting();
 

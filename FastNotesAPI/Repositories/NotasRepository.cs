@@ -64,9 +64,9 @@ namespace FastNotesAPI.Repositories
         {
             validationErrors = new List<string>();
 
-            if(string.IsNullOrWhiteSpace(entity.Contenido))
+            if(string.IsNullOrWhiteSpace(entity.Titulo) && string.IsNullOrWhiteSpace(entity.Contenido))
             {
-                validationErrors.Add("El contenido de la nota se encuentra vacia");
+                validationErrors.Add("El titulo y el contenido de la nota se encuentra vacia");
             }
             return validationErrors.Count == 0;
         }
