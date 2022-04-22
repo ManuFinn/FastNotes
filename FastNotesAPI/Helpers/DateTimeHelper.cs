@@ -4,7 +4,7 @@
     {
         public static DateTime ToMexicoTime(this DateTime day)
         {
-        return TimeZoneInfo.ConvertTime(day, TimeZoneInfo.FindSystemTimeZoneById("America/Mexico_City"));
+        return TimeZoneInfo.ConvertTime(day, TimeZoneInfo.FindSystemTimeZoneById("Eastern Standard Time (Mexico)"));
         }
     } //PACIFIC STANDAET TIME (MEXICO)
 

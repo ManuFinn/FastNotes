@@ -20,7 +20,7 @@ namespace FastNotesAPI.Repositories
 
         public override IEnumerable<Fastnotesapi> GetAll()
         {
-            return base.GetAll().Where(x => x.Eliminado == 0).OrderBy(x => x.Timestamp);
+            return base.GetAll().Where(x => x.Eliminado == 0).OrderByDescending(x => x.Timestamp);
         }
 
         public IEnumerable<Fastnotesapi> GetAllSinceDate(DateTime timestamp)
