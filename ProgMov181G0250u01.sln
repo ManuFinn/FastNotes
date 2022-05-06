@@ -3,7 +3,11 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.1.32228.430
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FastNotesAPI", "FastNotesAPI\FastNotesAPI.csproj", "{EC1BE809-096D-4FE7-82FE-80A9D3A0F6F4}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FastNotesAPI", "FastNotesAPI\FastNotesAPI.csproj", "{EC1BE809-096D-4FE7-82FE-80A9D3A0F6F4}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MyNotes.Android", "MyNotes\MyNotes.Android\MyNotes.Android.csproj", "{1132A8B8-26EE-4439-B91C-A560FD819CB1}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MyNotes", "MyNotes\MyNotes\MyNotes.csproj", "{6641D34D-0D17-4BFC-A25B-2F8523AF7C38}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,6 +19,16 @@ Global
 		{EC1BE809-096D-4FE7-82FE-80A9D3A0F6F4}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{EC1BE809-096D-4FE7-82FE-80A9D3A0F6F4}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{EC1BE809-096D-4FE7-82FE-80A9D3A0F6F4}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1132A8B8-26EE-4439-B91C-A560FD819CB1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1132A8B8-26EE-4439-B91C-A560FD819CB1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1132A8B8-26EE-4439-B91C-A560FD819CB1}.Debug|Any CPU.Deploy.0 = Debug|Any CPU
+		{1132A8B8-26EE-4439-B91C-A560FD819CB1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1132A8B8-26EE-4439-B91C-A560FD819CB1}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1132A8B8-26EE-4439-B91C-A560FD819CB1}.Release|Any CPU.Deploy.0 = Release|Any CPU
+		{6641D34D-0D17-4BFC-A25B-2F8523AF7C38}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6641D34D-0D17-4BFC-A25B-2F8523AF7C38}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6641D34D-0D17-4BFC-A25B-2F8523AF7C38}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6641D34D-0D17-4BFC-A25B-2F8523AF7C38}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

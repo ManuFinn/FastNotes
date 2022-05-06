@@ -19,7 +19,7 @@ namespace FastNotesAPI
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddDbContext<progmovilContext>(optionsBuilder =>
-            optionsBuilder.UseMySql("server = localhost; user = root; password = root; database = progmovil",
+            optionsBuilder.UseMySql("server = 204.93.216.11; user = itesrcne_jean; password = 181G0250; database = itesrcne_181g0250",
             Microsoft.EntityFrameworkCore.ServerVersion.Parse("8.0.28 - mysql")));
 
             services.AddControllers();
@@ -28,10 +28,10 @@ namespace FastNotesAPI
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
-            if (env.IsDevelopment())
-            {
-                app.UseDeveloperExceptionPage();
-            }
+            //if (env.IsDevelopment())
+            //{
+               app.UseDeveloperExceptionPage();
+            //}
 
             app.UseRequestLocalization("es-MX");
 
