@@ -227,7 +227,7 @@ namespace MyNotes.Services
                     }
                     if(result.StatusCode == System.Net.HttpStatusCode.NotFound)
                     {
-                        errores.Add("No se ha encontrado el contacto indicado.");
+                        errores.Add("No existe la nota.");
                         return errores;
                     }
                     if(result.StatusCode == System.Net.HttpStatusCode.InternalServerError)
