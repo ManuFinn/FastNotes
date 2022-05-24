@@ -1,12 +1,35 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="MyNotes.Views.NotasView">
-    <ContentPage.Content>
-        <StackLayout>
-            <Label Text="Welcome to Xamarin.Forms!"
-                VerticalOptions="CenterAndExpand" 
-                HorizontalOptions="CenterAndExpand" />
-        </StackLayout>
-    </ContentPage.Content>
+             xmlns:vm="clr-namespace:MyNotes.ViewModels"
+             x:Class="MyNotes.Views.NotasView"
+             Title="My Notes">
+    <ContentPage.BindingContext>
+        <vm:NotasViewModel x:Name="nvm"/>
+    </ContentPage.BindingContext>
+    <ContentPage.ToolbarItems>
+        <ToolbarItem Text="New" Command="{Binding VistaAgregarCommand}"/>
+    </ContentPage.ToolbarItems>
+    <CollectionView ItemsSource="{Binding Notas}" Margin="10">
+        <CollectionView.ItemTemplate>
+            <DataTemplate>
+                <SwipeView>
+                    <SwipeView.RightItems>
+                        <SwipeItem Command="{Binding Source={x:Reference nvm}, Path=VistaEditarCommand}"                                    
+                                   CommandParameter="{Binding .}"
+                                   Text="Editar" BackgroundColor="Black" ></SwipeItem>
+                        <SwipeItem Command="{Binding Source={x:Reference nvm}, Path=EliminarCommand}"                                    
+                                   CommandParameter="{Binding .}" Text="Eliminar" BackgroundColor="Red"></SwipeItem>
+                    </SwipeView.RightItems>
+
+                    <Frame BackgroundColor="White" Margin="2">
+                        <StackLayout>
+                            <Label  Text="{Binding Titulo}"></Label>
+                            <Label  Text="{Binding Contenido}"></Label>
+                        </StackLayout>
+                    </Frame>
+                </SwipeView>
+            </DataTemplate>
+        </CollectionView.ItemTemplate>
+    </CollectionView>
 </ContentPage>

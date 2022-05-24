@@ -17,7 +17,7 @@ namespace MyNotes
 
             Sincronizador = new SincronizadorServices(Lista);
 
-            MainPage = new MainPage();
+            MainPage = new NavigationPage(new Views.NotasView());;
         }
 
         protected override void OnStart()

@@ -1,12 +1,32 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="MyNotes.Views.EditarNotaView">
+             x:Class="MyNotes.Views.EditarNotaView"
+             xmlns:vm="clr-namespace:MyNotes.ViewModels"
+             xmlns:m="clr-namespace:MyNotes.Models"
+             x:DataType="vm:NotasViewModel">
     <ContentPage.Content>
-        <StackLayout>
-            <Label Text="Welcome to Xamarin.Forms!"
-                VerticalOptions="CenterAndExpand" 
-                HorizontalOptions="CenterAndExpand" />
+        <StackLayout Margin="10">
+            <Label>Titulo de la nota</Label>
+            <Entry Text="{Binding Nota.Titulo}"></Entry>
+            <Entry Text="{Binding Nota.Contenido}"></Entry>
+
+
+
+            <StackLayout  BindableLayout.ItemsSource="{Binding Errors}" HorizontalOptions="Center">
+                <BindableLayout.ItemTemplate>
+                    <DataTemplate x:DataType="m:ErrorModel">
+                        <Label TextColor="Red" FontSize="Small" HorizontalTextAlignment="Center" Text="{Binding Error}"></Label>
+                    </DataTemplate>
+                </BindableLayout.ItemTemplate>
+            </StackLayout>
+
+            <StackLayout Margin="10" HorizontalOptions="Center" Orientation="Horizontal">
+                <Button Text="Agregar" Command="{Binding EditarCommand}"></Button>
+                <Button Command="{Binding CancelarCommand}" Text="Cancelar"></Button>
+            </StackLayout>
+
+
         </StackLayout>
     </ContentPage.Content>
 </ContentPage>

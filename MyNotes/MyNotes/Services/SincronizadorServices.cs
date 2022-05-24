@@ -17,9 +17,11 @@ namespace MyNotes.Services
 
         public List<NotasEntity> Buffer { get; set; }
 
+        string API = "https://181g0250.81g.itesrc.net/api/notas";
+
         static HttpClient client = new HttpClient()
         {
-            BaseAddress = new Uri("http://181g0250.81g.itesrc.net")
+            BaseAddress = new Uri("https://181g0250.81g.itesrc.net/api/notas")
         };
 
         string key = "FechaUltimaActualizacion";
@@ -52,7 +54,9 @@ namespace MyNotes.Services
             if(Connectivity.NetworkAccess == NetworkAccess.Internet)
             {
                 var fecha = DateTime.Now;
-                var result = await client.GetAsync("api/notas");
+                var result = await client.GetAsync(API);
+
+                var a = "pipo";
 
                 if(result.IsSuccessStatusCode)
                 {
@@ -209,7 +213,7 @@ namespace MyNotes.Services
 
                     HttpRequestMessage request = new HttpRequestMessage();
                     request.Method = method;
-                    request.RequestUri = new Uri(client.BaseAddress + "api/notas");
+                    request.RequestUri = new Uri(client.BaseAddress + "");
                     request.Content = new StringContent(json, Encoding.UTF8, "application/json");
 
                     var result = await client.SendAsync(request);
@@ -227,7 +231,7 @@ namespace MyNotes.Services
                     }
                     if(result.StatusCode == System.Net.HttpStatusCode.NotFound)
                     {
-                        errores.Add("No existe la nota.");
+                        errores.Add("Vieja puta");
                         return errores;
                     }
                     if(result.StatusCode == System.Net.HttpStatusCode.InternalServerError)
