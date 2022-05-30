@@ -19,7 +19,7 @@ namespace MyNotes.Models
 
         public IEnumerable<Notas> GetAll()
         {
-            return Conexion.Table<Notas>().ToList();
+            return Conexion.Table<Notas>().ToList().OrderByDescending(x => x.Id);
         }
 
         public void InsertOrReplace(Notas nO)
@@ -34,6 +34,7 @@ namespace MyNotes.Models
             { 
                 nota.Contenido = nO.Contenido; 
                 nota.Titulo = nO.Titulo;
+                nota.Id = nO.Id;
                 Conexion.Update(nota); //Update
             }
             else { Conexion.Delete(nota); } //Delete

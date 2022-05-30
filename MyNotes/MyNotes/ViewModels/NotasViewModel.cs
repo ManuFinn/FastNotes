@@ -77,7 +77,7 @@ namespace MyNotes.ViewModels
             }
 
             Notas.Clear();
-            foreach(var item in notas.OrderBy(x => x.Id))
+            foreach(var item in notas.OrderByDescending(x => x.Id))
             {
                 Notas.Add(item);
             }

@@ -3,6 +3,7 @@ using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using System.Net.Http;
 using System.Text;
 using System.Threading;
@@ -36,7 +37,7 @@ namespace MyNotes.Services
 
             DeserializarBuffer();
 
-            if (!Preferences.ContainsKey(key))
+            if (!Preferences.ContainsKey("FechaUltimaActualizacion"))
             {
                 _ = DescargarPrimeraVezAsync();
                 Sincronizar();
@@ -49,7 +50,7 @@ namespace MyNotes.Services
             await Descargar();
         }
 
-        async Task DescargarPrimeraVezAsync()
+        async Task DescargarPrimeraVezAsync() ///Este si funciona, ya no moverle Jean del futuro
         {
             if(Connectivity.NetworkAccess == NetworkAccess.Internet)
             {
@@ -60,9 +61,13 @@ namespace MyNotes.Services
 
                 if(result.IsSuccessStatusCode)
                 {
-                    Preferences.Set(key, fecha);
+                    Preferences.Set("FechaUltimaActualizacion", fecha);
                     string json = await result.Content.ReadAsStringAsync();
                     List<Notas> notas = JsonConvert.DeserializeObject<List<Notas>>(json);
+
+                    var orden = from s in notas
+                            orderby s.Id descending
+                            select s;
 
                     notas.ForEach(x => Lista.InsertOrReplace(x));
 
@@ -96,21 +101,21 @@ namespace MyNotes.Services
                 {
                     Console.WriteLine("CargarBuffer Iniciado");
 
-                    foreach (var ce in Buffer.ToArray())
+                    foreach (var ne in Buffer.ToArray())
                     {
-                        switch (ce.Estado)
+                        switch (ne.Estado)
                         {
                             case Estado.Agregado:
-                                var result = await EnviarAPI(ce.Nota, HttpMethod.Post);
-                                if (result != null) Buffer.Remove(ce);
+                                var result = await EnviarAPI(ne.Nota, HttpMethod.Post);
+                                if (result != null) Buffer.Remove(ne);
                                 break;
                             case Estado.Modificado:
-                                await EnviarAPI(ce.Nota, HttpMethod.Put);
-                                Buffer.Remove(ce);
+                                await EnviarAPI(ne.Nota, HttpMethod.Put);
+                                Buffer.Remove(ne);
                                 break;
                             case Estado.Eliminado:
-                                await EnviarAPI(ce.Nota, HttpMethod.Delete);
-                                Buffer.Remove(ce);
+                                await EnviarAPI(ne.Nota, HttpMethod.Delete);
+                                Buffer.Remove(ne);
                                 break;
                         }
                     }
@@ -124,16 +129,17 @@ namespace MyNotes.Services
 
         private async Task Descargar()
         {
-            if (Connectivity.NetworkAccess == NetworkAccess.Internet && Preferences.ContainsKey(key))
+            if (Connectivity.NetworkAccess == NetworkAccess.Internet && Preferences.ContainsKey("FechaUltimaActualizacion"))
             {
                 await CargarBuffer();
                 Console.WriteLine("Descargar Iniciado");
 
-                var json = JsonConvert.SerializeObject(Preferences.Get(key, DateTime.MinValue));
+                var json = JsonConvert.SerializeObject(Preferences.Get("FechaUltimaActualizacion", DateTime.MinValue));
 
                 var fecha = DateTime.Now;
 
-                var resp = await client.PostAsync("api/notas/sincronizar", new StringContent(json, Encoding.UTF8, "application/json"));
+                var resp = await client.PostAsync("api/notas/sincronizar", 
+                    new StringContent(json, Encoding.UTF8, "application/json"));
 
                 if(resp.IsSuccessStatusCode)
                 {
@@ -146,7 +152,7 @@ namespace MyNotes.Services
                         Lista.InsertOrReplace(item);
                     }
 
-                    Preferences.Set(key, fecha);
+                    Preferences.Set("FechaUltimaActualizacion", fecha);
 
                     if(lista.Count > 0) { LanzarEvento(); }
                 }
