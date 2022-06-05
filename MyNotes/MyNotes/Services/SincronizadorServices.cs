@@ -252,7 +252,7 @@ namespace MyNotes.Services
                     }
                     if(result.StatusCode == System.Net.HttpStatusCode.NotFound)
                     {
-                        errores.Add("Vieja puta");
+                        errores.Add("Error, no existe o no se encontro la nota.");
                         return errores;
                     }
                     if(result.StatusCode == System.Net.HttpStatusCode.InternalServerError)
@@ -272,7 +272,7 @@ namespace MyNotes.Services
             }
             else
             {
-                errores.Add("Conectese al wifi mijo");
+                errores.Add("Error de conexion, intente conectarse a otra red WiFi.");
                 return null;
             }
         }
