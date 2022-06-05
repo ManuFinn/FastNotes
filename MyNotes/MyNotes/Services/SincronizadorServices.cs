@@ -22,7 +22,7 @@ namespace MyNotes.Services
 
         static HttpClient client = new HttpClient()
         {
-            BaseAddress = new Uri("https://181g0250.81g.itesrc.net/api/notas")
+            BaseAddress = new Uri("https://181g0250.81g.itesrc.net")
         };
 
         string key = "FechaUltimaActualizacion";
@@ -107,7 +107,7 @@ namespace MyNotes.Services
                         {
                             case Estado.Agregado:
                                 var result = await EnviarAPI(ne.Nota, HttpMethod.Post);
-                                if (result != null) Buffer.Remove(ne);
+                                Buffer.Remove(ne);
                                 break;
                             case Estado.Modificado:
                                 await EnviarAPI(ne.Nota, HttpMethod.Put);
@@ -164,7 +164,12 @@ namespace MyNotes.Services
 
         public async Task<List<string>> Agregar(Notas n)
         {
-            if (Connectivity.NetworkAccess == NetworkAccess.Internet) { return await EnviarAPI(n, HttpMethod.Post); }
+            if (Connectivity.NetworkAccess == NetworkAccess.Internet) 
+            { 
+                var postito = await EnviarAPI(n, HttpMethod.Post);
+                await Descargar();
+                return postito;
+            }
             else
             {
                 NotasEntity nE = new NotasEntity();
@@ -179,7 +184,12 @@ namespace MyNotes.Services
 
         public async Task<List<string>> Editar(Notas n)
         {
-            if (Connectivity.NetworkAccess == NetworkAccess.Internet) { return await EnviarAPI(n, HttpMethod.Put); }
+            if (Connectivity.NetworkAccess == NetworkAccess.Internet)
+            {
+                var postito = await EnviarAPI(n, HttpMethod.Put);
+                await Descargar();
+                return postito;
+            }
             else
             {
                 NotasEntity nE = new NotasEntity();
@@ -194,7 +204,12 @@ namespace MyNotes.Services
 
         public async Task<List<string>> Eliminar(Notas n)
         {
-            if (Connectivity.NetworkAccess == NetworkAccess.Internet) { return await EnviarAPI(n, HttpMethod.Delete); }
+            if (Connectivity.NetworkAccess == NetworkAccess.Internet)
+            {
+                var postito = await EnviarAPI(n, HttpMethod.Delete);
+                await Descargar();
+                return postito;
+            }
             else
             {
                 NotasEntity nE = new NotasEntity();
@@ -219,14 +234,14 @@ namespace MyNotes.Services
 
                     HttpRequestMessage request = new HttpRequestMessage();
                     request.Method = method;
-                    request.RequestUri = new Uri(client.BaseAddress + "");
+                    request.RequestUri = new Uri(client.BaseAddress + "api/notas");
                     request.Content = new StringContent(json, Encoding.UTF8, "application/json");
 
                     var result = await client.SendAsync(request);
 
                     if(result.IsSuccessStatusCode)
                     {
-                        await Descargar();
+                        //await Descargar();
                         return null;
                     }
                     if(result.StatusCode == System.Net.HttpStatusCode.BadRequest)

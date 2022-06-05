@@ -61,7 +61,7 @@ namespace MyNotes.ViewModels
 
             foreach (var nE in App.Sincronizador.Buffer)
             {
-                if(nE.Estado == Estado.Agregado) { notas.Add(nE.Nota); }
+                if(nE.Estado == Estado.Agregado) { notas.Insert(0,nE.Nota); }
                 else if (nE.Estado == Estado.Modificado) {
                     var n = notas.FirstOrDefault(x => x.Id == nE.Nota.Id);
                     if(n != null) { 
