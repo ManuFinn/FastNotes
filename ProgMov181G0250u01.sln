@@ -7,7 +7,11 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FastNotesAPI", "FastNotesAP
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MyNotes.Android", "MyNotes\MyNotes.Android\MyNotes.Android.csproj", "{1132A8B8-26EE-4439-B91C-A560FD819CB1}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MyNotes", "MyNotes\MyNotes\MyNotes.csproj", "{6641D34D-0D17-4BFC-A25B-2F8523AF7C38}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MyNotes", "MyNotes\MyNotes\MyNotes.csproj", "{6641D34D-0D17-4BFC-A25B-2F8523AF7C38}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "API", "API", "{AA41DDEA-21F3-4F27-96CD-7F2A0D8A1AA9}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Unidad01", "Unidad01", "{12B92A3B-532F-4E5E-9716-08692D002AF1}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -32,6 +36,11 @@ Global
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{EC1BE809-096D-4FE7-82FE-80A9D3A0F6F4} = {AA41DDEA-21F3-4F27-96CD-7F2A0D8A1AA9}
+		{1132A8B8-26EE-4439-B91C-A560FD819CB1} = {12B92A3B-532F-4E5E-9716-08692D002AF1}
+		{6641D34D-0D17-4BFC-A25B-2F8523AF7C38} = {12B92A3B-532F-4E5E-9716-08692D002AF1}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {E8E0267F-1BB6-4936-9747-27FF5D73AF53}
