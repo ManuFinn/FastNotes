@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using Microsoft.EntityFrameworkCore;
-using FastNotesAPI.Models.Notas;
+using FastNotesAPI.Models;
 
 namespace FastNotesAPI.Repositories
 {

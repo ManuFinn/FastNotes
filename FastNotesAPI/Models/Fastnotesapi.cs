@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 #nullable disable
 
-namespace FastNotesAPI.Models.Notas
+namespace FastNotesAPI.Models
 {
     public partial class Fastnotesapi
     {

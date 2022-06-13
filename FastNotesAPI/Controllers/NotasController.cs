@@ -1,4 +1,4 @@
-﻿using FastNotesAPI.Models.Notas;
+﻿using FastNotesAPI.Models;
 using FastNotesAPI.Repositories;
 using Microsoft.AspNetCore.Mvc;
 using System;
@@ -11,11 +11,11 @@ namespace FastNotesAPI.Controllers
     [ApiController]
     public class NotasController : ControllerBase
     {
-        public progmovilContext Context { get; set; }
+        public itesrcne_181g0250Context Context { get; set; }
 
         NotasRepository repo;
 
-        public NotasController(progmovilContext context)
+        public NotasController(itesrcne_181g0250Context context)
         {
             Context = context;
             repo = new NotasRepository(context);

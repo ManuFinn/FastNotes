@@ -1,5 +1,4 @@
-﻿using FastNotesAPI.Models.Login;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
@@ -9,6 +8,7 @@ using System.Collections.Generic;
 using System.Security.Claims;
 using System.Text;
 using System;
+using FastNotesAPI.Models;
 
 namespace FastNotesAPI.Controllers
 {

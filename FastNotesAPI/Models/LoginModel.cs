@@ -1,4 +1,4 @@
-﻿namespace FastNotesAPI.Models.Login
+﻿namespace FastNotesAPI.Models
 {
     public class LoginModel
     {
