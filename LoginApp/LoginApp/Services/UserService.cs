@@ -1,4 +1,5 @@
 ﻿using LoginApp.Models;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.IdentityModel.Tokens.Jwt;
@@ -37,26 +38,66 @@ namespace LoginApp.Services
             }
         }
 
-        //public async Task<bool> Renovar()
-        //{
-        //    var user = await SecureStorage.GetAsync("User");
-        //    var pass = await SecureStorage.GetAsync("Passowrd");
+        public async Task<bool> Renovar()
+        {
+            var user = await SecureStorage.GetAsync("User");
+            var pass = await SecureStorage.GetAsync("Passowrd");
 
-        //    if(user != null && pass != null)
-        //    {
-        //        return await IniciarSesion(new LoginModel
-        //        {
-        //            User = user,
-        //            Password = pass
-        //        });
-        //    }
-        //    return false;
-        //}
+            if (user != null && pass != null)
+            {
+                return await IniciarSesion(new LoginModel
+                {
+                    User = user,
+                    Password = pass
+                });
+            }
+            return false;
+        }
 
-        //public async Task<bool> IniciarSesion(LoginModel lm)
-        //{
-        //    HttpClient client = new HttpClient();
-        //    client.BaseAddress = new Uri("");
-        //}
+        public async Task<bool> IniciarSesion(LoginModel lm)
+        {
+            HttpClient client = new HttpClient();
+            client.BaseAddress = new Uri("http://181g0250.81g.itesrc.net/");
+
+            var json = JsonConvert.SerializeObject(lm);
+
+            var result = await client.PostAsync("api/login",
+                new StringContent(json, Encoding.UTF8, "application/json"));
+
+            SecureStorage.RemoveAll();
+
+            if(result.IsSuccessStatusCode)
+            {
+                var token = await result.Content.ReadAsStringAsync();
+
+                await SecureStorage.SetAsync("MiToken", token);
+                await SecureStorage.SetAsync("User", lm.User);
+                await SecureStorage.SetAsync("Password", lm.Password);
+
+                var thand = new JwtSecurityTokenHandler();
+                var des = thand.ReadJwtToken(token);
+
+                Identity = new ClaimsIdentity(des.Claims);
+                ExpDate = des.ValidTo;
+
+                return true;
+            }
+            else if (result.StatusCode == System.Net.HttpStatusCode.Unauthorized) { return false; }
+
+            return true;
+        }
+
+        public void BackToLogin()
+        {
+            App.Current.MainPage = new Views.ListaProductosView();
+        }
+
+        public void CerrarSesion()
+        {
+            SecureStorage.RemoveAll();
+            Identity = null;
+            ExpDate = DateTime.MinValue;
+            App.Current.MainPage = new Views.LoginView();
+        }
     }
 }

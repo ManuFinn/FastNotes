@@ -1,0 +1,23 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:vm="clr-namespace:LoginApp.ViewModels"
+             x:Class="LoginApp.Views.LoginView">
+    <ContentPage.BindingContext>
+        
+    </ContentPage.BindingContext>
+    <StackLayout>
+        <Label>Usuario:</Label>
+        <Entry Text="{Binding LoginModel.Usuario}"></Entry>
+
+        <Label>Contraseña:</Label>
+        <Entry IsPassword="True" Text="{Binding LoginModel.Contraseña}" ></Entry>
+
+        <Label Text="{Binding Error}" TextColor="Red" HorizontalOptions="Center" FontSize="Small"></Label>
+
+        <ActivityIndicator IsVisible="{Binding Indicador}"></ActivityIndicator>
+
+        <Button Command="{Binding IniciarSesionCommand}" HorizontalOptions="Center" Text="Iniciar sesión"></Button>
+
+    </StackLayout>
+</ContentPage>
