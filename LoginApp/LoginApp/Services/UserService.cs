@@ -11,7 +11,7 @@ using Xamarin.Essentials;
 
 namespace LoginApp.Services
 {
-    internal class UserService
+    public class UserService
     {
         public async Task<string> GetToken()
         {

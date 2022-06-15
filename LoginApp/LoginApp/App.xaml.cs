@@ -1,4 +1,6 @@
-﻿using System;
+﻿using LoginApp.Services;
+using LoginApp.Views;
+using System;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
@@ -6,11 +8,15 @@ namespace LoginApp
 {
     public partial class App : Application
     {
+        public static UserService User { get; private set; } = new UserService();
+
         public App()
         {
             InitializeComponent();
 
-            MainPage = new MainPage();
+            if (User.IsLoggedIn || User.Renovar().Result) { User.BackToLogin(); }
+            else { MainPage = new LoginView(); }
+
         }
 
         protected override void OnStart()
