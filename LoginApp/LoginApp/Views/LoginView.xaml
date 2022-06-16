@@ -4,14 +4,14 @@
              xmlns:vm="clr-namespace:LoginApp.ViewModels"
              x:Class="LoginApp.Views.LoginView">
     <ContentPage.BindingContext>
-        
+        <vm:LoginViewModel/>
     </ContentPage.BindingContext>
     <StackLayout>
         <Label>Usuario:</Label>
-        <Entry Text="{Binding LoginModel.Usuario}"></Entry>
+        <Entry Text="{Binding LoginModel.User}"></Entry>
 
         <Label>Contraseña:</Label>
-        <Entry IsPassword="True" Text="{Binding LoginModel.Contraseña}" ></Entry>
+        <Entry IsPassword="True" Text="{Binding LoginModel.Password}" ></Entry>
 
         <Label Text="{Binding Error}" TextColor="Red" HorizontalOptions="Center" FontSize="Small"></Label>
 
