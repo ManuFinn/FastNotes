@@ -1,11 +1,13 @@
 ﻿using FastNotesAPI.Models;
 using FastNotesAPI.Repositories;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace FastNotesAPI.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
+    [Authorize]
     public class ProductosController : Controller
     {
         public itesrcne_181g0250Context Context { get; set; }

@@ -20,18 +20,20 @@ namespace FastNotesAPI
         // This method gets called by the runtime. Use this method to add services to the container.
         // For more information on how to configure your application, visit https://go.microsoft.com/fwlink/?LinkID=398940
 
-        //public Startup(IConfiguration configuration)
-        //{
-        //    Configuration = configuration;
-        //}
+        public Startup(IConfiguration configuration)
+        {
+            Configuration = configuration;
+        }
 
         public IConfiguration Configuration { get; }
 
-        public void ConfigureServices(IServiceCollection services, IHostBuilder builder)
+        public void ConfigureServices(IServiceCollection services)
         {
             string llave = Configuration["JwtAuth:Key"];
             string issuer = Configuration["JwtAuth:Issuer"];
             string aud = Configuration["JwtAuth:Audience"];
+
+            
 
             services.AddDbContext<itesrcne_181g0250Context>(optionsBuilder =>
             optionsBuilder.UseMySql("server=204.93.216.11;database=itesrcne_181g0250;user=itesrcne_jean;password=181G0250", 

@@ -15,7 +15,7 @@ namespace LoginApp.Services
     {
         public async Task<string> GetToken()
         {
-            var x = await SecureStorage.GetAsync("myToken");
+            var x = await SecureStorage.GetAsync("MiToken");
             return x;
         }
 
@@ -57,11 +57,11 @@ namespace LoginApp.Services
         public async Task<bool> IniciarSesion(LoginModel lm)
         {
             HttpClient client = new HttpClient();
-            client.BaseAddress = new Uri("http://181g0250.81g.itesrc.net/");
+            client.BaseAddress = new Uri("https://181g0250.81g.itesrc.net/");
 
             var json = JsonConvert.SerializeObject(lm);
 
-            var result = await client.PostAsync("api/login",
+            var result = await client.PostAsync("api/Login",
                 new StringContent(json, Encoding.UTF8, "application/json"));
 
             SecureStorage.RemoveAll();

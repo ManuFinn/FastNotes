@@ -9,6 +9,7 @@ using System.Security.Claims;
 using System.Text;
 using System;
 using FastNotesAPI.Models;
+using FastNotesAPI.Repositories;
 
 namespace FastNotesAPI.Controllers
 {
@@ -19,16 +20,22 @@ namespace FastNotesAPI.Controllers
         public IConfiguration Configuration { get; }
 
         public  itesrcne_181g0250Context Context { get; set; }
+        public LoginRepository repository;
+
+
 
         public LoginController(IConfiguration configuration, itesrcne_181g0250Context context)
         {
-            Configuration = configuration;
             Context = context;
+            repository = new LoginRepository(context);
+            Configuration = configuration;
         }   
 
         [HttpPost]
         public IActionResult Post(LoginModel model)
         {
+            
+
             if(model.User == "a" && model.Password == "a")
             {
                 List<Claim> claims = new List<Claim>();

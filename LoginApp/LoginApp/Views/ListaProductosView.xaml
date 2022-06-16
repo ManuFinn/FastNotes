@@ -8,6 +8,7 @@
     </ContentPage.BindingContext>
     <ContentPage.Content>
         <StackLayout>
+            <Label Text="Bienvenido usuario"></Label>
             <CollectionView ItemsSource="{Binding Lista}">
                 <CollectionView.ItemTemplate>
                     <DataTemplate>
