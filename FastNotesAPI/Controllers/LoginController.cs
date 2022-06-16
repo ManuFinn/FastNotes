@@ -18,15 +18,18 @@ namespace FastNotesAPI.Controllers
     {
         public IConfiguration Configuration { get; }
 
-        public LoginController(IConfiguration configuration)
+        public  itesrcne_181g0250Context Context { get; set; }
+
+        public LoginController(IConfiguration configuration, itesrcne_181g0250Context context)
         {
             Configuration = configuration;
-        }
+            Context = context;
+        }   
 
         [HttpPost]
         public IActionResult Post(LoginModel model)
         {
-            if(model.User == "Usuario01" && model.Password == "4dm1n")
+            if(model.User == "a" && model.Password == "a")
             {
                 List<Claim> claims = new List<Claim>();
                 claims.Add(new Claim(ClaimTypes.Name, "Admin"));

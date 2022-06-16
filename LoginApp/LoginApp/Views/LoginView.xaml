@@ -17,7 +17,7 @@
 
         <ActivityIndicator IsVisible="{Binding Indicador}"></ActivityIndicator>
 
-        <Button Command="{Binding IniciarSesionCommand}" HorizontalOptions="Center" Text="Iniciar sesión"></Button>
+        <Button Command="{Binding LogInCommnad}" HorizontalOptions="Center" Text="Iniciar sesión"></Button>
 
     </StackLayout>
 </ContentPage>
