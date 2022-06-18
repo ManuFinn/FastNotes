@@ -4,7 +4,7 @@
              xmlns:vm="clr-namespace:MyNotes.ViewModels"
              xmlns:controls="clr-namespace:MarcTron.Plugin.Controls;assembly=Plugin.MtAdmob"
              x:Class="MyNotes.Views.NotasView"
-             Title="Notes io" BackgroundColor="{AppThemeBinding Light=#FFFFFF, Dark=#1f1f1f}" >
+             Title="Notes io" BackgroundColor="#FFFFFF" >
     <ContentPage.BindingContext>
         <vm:NotasViewModel x:Name="nvm"/>
     </ContentPage.BindingContext>

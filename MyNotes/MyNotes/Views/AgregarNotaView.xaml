@@ -4,7 +4,7 @@
              x:Class="MyNotes.Views.AgregarNotaView"
              xmlns:vm="clr-namespace:MyNotes.ViewModels"
              xmlns:m="clr-namespace:MyNotes.Models"
-             BackgroundColor="{AppThemeBinding Light=#FFFFFF, Dark=#1f1f1f}"
+             BackgroundColor="#1f1f1f"
              x:DataType="vm:NotasViewModel"
              Title="Nueva nota...">
     <ContentPage.ToolbarItems>

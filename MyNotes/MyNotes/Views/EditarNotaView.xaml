@@ -5,6 +5,7 @@
              xmlns:vm="clr-namespace:MyNotes.ViewModels"
              xmlns:m="clr-namespace:MyNotes.Models"
              x:DataType="vm:NotasViewModel"
+             BackgroundColor="#1f1f1f"
              Title="Editar nota...">
     <ContentPage.ToolbarItems>
         <ToolbarItem IconImageSource="cherckmark.png" Command="{Binding EditarCommand}"/>
