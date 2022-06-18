@@ -5,41 +5,34 @@
              xmlns:vm="clr-namespace:MyNotes.ViewModels"
              xmlns:m="clr-namespace:MyNotes.Models"
              BackgroundColor="{AppThemeBinding Light=#FFFFFF, Dark=#1f1f1f}"
-             x:DataType="vm:NotasViewModel">
+             x:DataType="vm:NotasViewModel"
+             Title="Nueva nota...">
+    <ContentPage.ToolbarItems>
+        <ToolbarItem IconImageSource="cherckmark.png" Command="{Binding AgregarCommand}"/>
+    </ContentPage.ToolbarItems>
     <ContentPage.Content>
-        <Grid Margin="10">
+        <StackLayout Margin="10">
             <Frame BackgroundColor="#febf10"  BorderColor="{AppThemeBinding Dark=#00000, Light=#454545}">
                 <Grid>
                     <Grid.RowDefinitions>
                         <RowDefinition Height="0.1*" />
-                        <RowDefinition Height="1*" />
+                        <RowDefinition Height="1.85*" />
                         <RowDefinition Height="0.1*" />
                     </Grid.RowDefinitions>
-                    <Entry Grid.Row="0" TextColor="#000000" Placeholder="Titulo de la nota..." PlaceholderColor="#616168" Text="{Binding Nota.Titulo}"></Entry>
-                    <Editor Grid.Row="1" TextColor="#000000" Placeholder="Aqui escribes la nota..." PlaceholderColor="#616168" Text="{Binding Nota.Contenido}" MaxLength="1024" HeightRequest="500"></Editor>
-
-
-
-                    <StackLayout Grid.Row="2" Orientation="Vertical">
-                        <StackLayout  BindableLayout.ItemsSource="{Binding Errors}" HorizontalOptions="Center">
-                            <BindableLayout.ItemTemplate>
-                                <DataTemplate x:DataType="m:ErrorModel">
-                                    <Label TextColor="#d8453c" FontAttributes="Bold" FontSize="Medium" HorizontalTextAlignment="Center" Text="{Binding Error}"></Label>
-                                </DataTemplate>
-                            </BindableLayout.ItemTemplate>
-                        </StackLayout>
-
-                        <StackLayout Margin="10" HorizontalOptions="Center" Orientation="Horizontal">
-                            <Button Text="Crear nota" Command="{Binding AgregarCommand}"
-                                    CornerRadius="20" BackgroundColor="#91b064" TextColor="#000000" BorderColor="#000000" BorderWidth="1"></Button>
-                            <Button Text="Cancelar" Command="{Binding CancelarCommand}"
-                                    CornerRadius="20" BackgroundColor="#d8453c" TextColor="#000000" BorderColor="#000000" BorderWidth="1" ></Button>
-                        </StackLayout>
+                    <Entry Grid.Row="0" TextColor="#000000" Placeholder="Titulo de la nota..." 
+                           PlaceholderColor="#616168" Text="{Binding Nota.Titulo}"></Entry>
+                    <Editor Grid.Row="1" TextColor="#000000" Placeholder="Aqui escribes la nota..." 
+                            PlaceholderColor="#616168" Text="{Binding Nota.Contenido}" MaxLength="1024" HeightRequest="500"></Editor>
+                    <StackLayout Grid.Row="2" BindableLayout.ItemsSource="{Binding Errors}" HorizontalOptions="Center">
+                        <BindableLayout.ItemTemplate>
+                            <DataTemplate x:DataType="m:ErrorModel">
+                                <Label TextColor="#d8453c" FontAttributes="Bold" FontSize="Medium" 
+                                       HorizontalTextAlignment="Center" Text="{Binding Error}"></Label>
+                            </DataTemplate>
+                        </BindableLayout.ItemTemplate>
                     </StackLayout>
-
-
                 </Grid>
             </Frame>
-        </Grid>
+        </StackLayout>
     </ContentPage.Content>
 </ContentPage>
