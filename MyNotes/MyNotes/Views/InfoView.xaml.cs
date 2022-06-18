@@ -20,7 +20,8 @@ namespace MyNotes.Views
 
         private void Button_Clicked(object sender, EventArgs e)
         {
-            CrossMTAdmob.Current.LoadInterstitial("ca-app-pub-5686190831281628/2863457514");
+            CrossMTAdmob.Current.LoadInterstitial("ca-app-pub-5686190831281628~4807056589");
+            //CrossMTAdmob.Current.
         }
     }
 }

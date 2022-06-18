@@ -18,9 +18,9 @@
                         <RowDefinition Height="1.85*" />
                         <RowDefinition Height="0.1*" />
                     </Grid.RowDefinitions>
-                    <Entry Grid.Row="0" TextColor="#000000" Placeholder="Titulo de la nota..." 
+                    <Entry Grid.Row="0" TextColor="#000000" Placeholder="Título de la nota..." 
                            PlaceholderColor="#616168" Text="{Binding Nota.Titulo}"></Entry>
-                    <Editor Grid.Row="1" TextColor="#000000" Placeholder="Aqui escribes la nota..." 
+                    <Editor Grid.Row="1" TextColor="#000000" Placeholder="Aquí escribes la nota..." 
                             PlaceholderColor="#616168" Text="{Binding Nota.Contenido}" MaxLength="1024" HeightRequest="500"></Editor>
                     <StackLayout Grid.Row="2" BindableLayout.ItemsSource="{Binding Errors}" HorizontalOptions="Center">
                         <BindableLayout.ItemTemplate>

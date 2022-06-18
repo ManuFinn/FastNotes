@@ -4,6 +4,7 @@ using Xamarin.Forms.Xaml;
 using MyNotes.Models;
 using MyNotes.Services;
 
+[assembly: ExportFont("LDFComicSans.otf", Alias = "ComicSans")]
 namespace MyNotes
 {
     public partial class App : Application
@@ -14,6 +15,8 @@ namespace MyNotes
         public App()
         {
             InitializeComponent();
+
+
 
             Sincronizador = new SincronizadorServices(Lista);
 
