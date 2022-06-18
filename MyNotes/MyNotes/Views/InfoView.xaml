@@ -1,0 +1,27 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="MyNotes.Views.InfoView">
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <Style TargetType="Label">
+                <Setter Property="TextColor" Value="#000000"/>
+                <Setter Property="HorizontalTextAlignment" Value="Center"/>
+            </Style>
+        </ResourceDictionary>
+    </ContentPage.Resources>
+    <ContentPage.Content>
+        <Grid Margin="10">
+            <Frame BackgroundColor="#febf10"  BorderColor="{AppThemeBinding Dark=#00000, Light=#454545}">
+                <Grid>
+                    <StackLayout HorizontalOptions="Center">
+                        <Label FontSize="Title" Text="Notes io"/>
+                        <Label FontSize="Subtitle" Text="Aplicacion creada por Jean Muñoz"/>
+                        <Label Text="Te agradeceria si vieras el video que se encuentra aqui abajo..."/>
+                        <Button Clicked="Button_Clicked" Text="Apoyo"></Button>
+                    </StackLayout>
+                </Grid>
+            </Frame>
+        </Grid>
+    </ContentPage.Content>
+</ContentPage>

@@ -1,4 +1,5 @@
-﻿using MyNotes.Models;
+﻿using MarcTron.Plugin;
+using MyNotes.Models;
 using MyNotes.Services;
 using MyNotes.Views;
 using System;
@@ -15,6 +16,7 @@ namespace MyNotes.ViewModels
     {
         AgregarNotaView vistaAgregar;
         EditarNotaView vistaEditar;
+        InfoView vistaInfo;
 
         Notas notas1;
 
@@ -40,6 +42,9 @@ namespace MyNotes.ViewModels
         public Command EditarCommand { get; set; }
         public Command EliminarCommand { get; set; }
         public Command CancelarCommand { get; set; }
+        public Command InfoCommand { get; set; }
+
+        public Command apoyoAnuncioCommand { get; set; }
 
         public NotasViewModel()
         {
@@ -49,6 +54,8 @@ namespace MyNotes.ViewModels
             AgregarCommand = new Command(Agregar);
             VistaAgregarCommand = new Command(VerAgregarAsync);
             VistaEditarCommand = new Command(VerEditarAsync);
+            InfoCommand = new Command(verInfo);
+            //apoyoAnuncioCommand = new Command(mostrarApoyo);
 
 
             SincronizadorServices.ActuializacionRealizada += SincronizadorService_ActualizacionRealizada;
@@ -101,6 +108,12 @@ namespace MyNotes.ViewModels
             Errors = null;
 
             await Application.Current.MainPage.Navigation.PushAsync(vistaEditar);
+        }
+
+        private void verInfo()
+        {
+            vistaInfo = new InfoView();
+            Application.Current.MainPage.Navigation.PushAsync(vistaInfo);
         }
 
         private async void Agregar()

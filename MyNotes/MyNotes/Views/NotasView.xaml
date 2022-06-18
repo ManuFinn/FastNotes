@@ -4,37 +4,41 @@
              xmlns:vm="clr-namespace:MyNotes.ViewModels"
              xmlns:controls="clr-namespace:MarcTron.Plugin.Controls;assembly=Plugin.MtAdmob"
              x:Class="MyNotes.Views.NotasView"
-             Title="My Notes">
+             Title="Notes io" BackgroundColor="{AppThemeBinding Light=#FFFFFF, Dark=#1f1f1f}">
     <ContentPage.BindingContext>
         <vm:NotasViewModel x:Name="nvm"/>
     </ContentPage.BindingContext>
     <ContentPage.ToolbarItems>
-        <ToolbarItem Text="New" Command="{Binding VistaAgregarCommand}"/>
+        <ToolbarItem IconImageSource="plus.png" Command="{Binding VistaAgregarCommand}"/>
+        <ToolbarItem IconImageSource="info.png" Command="{Binding InfoCommand}"/>
     </ContentPage.ToolbarItems>
-    <!--<controls:MTAdView
-                Grid.Row="1"
-                AdsId="ca-app-pub-5686190831281628/7719897051"/>-->
-    <CollectionView ItemsSource="{Binding Notas}" Margin="10">
-        <CollectionView.ItemTemplate>
-            <DataTemplate>
-                <SwipeView>
-                    <SwipeView.RightItems>
-                        <SwipeItem Command="{Binding Source={x:Reference nvm}, Path=VistaEditarCommand}"                                    
+    <StackLayout>
+        <CollectionView ItemsSource="{Binding Notas}" Margin="10">
+            <CollectionView.ItemTemplate>
+                <DataTemplate>
+                    <SwipeView>
+                        <SwipeView.RightItems>
+                            <SwipeItem Command="{Binding Source={x:Reference nvm}, Path=VistaEditarCommand}"                                    
                                    CommandParameter="{Binding .}"
-                                   Text="Editar" BackgroundColor="Black" ></SwipeItem>
-                        <SwipeItem Command="{Binding Source={x:Reference nvm}, Path=EliminarCommand}"                                    
-                                   CommandParameter="{Binding .}" Text="Eliminar" BackgroundColor="Red"></SwipeItem>
-                    </SwipeView.RightItems>
+                                   IconImageSource="pencil.png" Text="Editar"  BackgroundColor="#7d5e07" ></SwipeItem>
+                        </SwipeView.RightItems>
+                        <SwipeView.LeftItems>
+                            <SwipeItem Command="{Binding Source={x:Reference nvm}, Path=EliminarCommand}"                                    
+                                   CommandParameter="{Binding .}" 
+                                       IconImageSource="trash.png" Text="Elimiar" BackgroundColor="#7d5e07"></SwipeItem>
+                        </SwipeView.LeftItems>
 
-                    <Frame BackgroundColor="White" Margin="2">
-                        <StackLayout>
-                            <Label  Text="{Binding Titulo}"></Label>
-                            <Label  Text="{Binding Contenido}"></Label>
-                        </StackLayout>
-                    </Frame>
-                </SwipeView>
-            </DataTemplate>
-        </CollectionView.ItemTemplate>
-    </CollectionView>
+                        <Frame BackgroundColor="#febf10" BorderColor="{AppThemeBinding Dark=#00000, Light=#454545}" Margin="2">
+                            <StackLayout>
+                                <Label FontAttributes="Bold" FontSize="Large" TextColor="#000000" Text="{Binding Titulo}"></Label>
+                                <Label FontSize="Subtitle" TextColor="#000000" Text="{Binding Contenido}"></Label>
+                            </StackLayout>
+                        </Frame>
+                    </SwipeView>
+                </DataTemplate>
+            </CollectionView.ItemTemplate>
+        </CollectionView>
+        <controls:MTAdView HeightRequest="50" AdsId="ca-app-pub-5686190831281628/7719897051"/>
+    </StackLayout>
 
 </ContentPage>
