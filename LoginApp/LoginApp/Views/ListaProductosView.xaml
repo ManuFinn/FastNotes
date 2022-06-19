@@ -2,27 +2,49 @@
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:vm ="clr-namespace:LoginApp.ViewModels"
-             x:Class="LoginApp.Views.ListaProductosView">
+             x:Class="LoginApp.Views.ListaProductosView"
+             BackgroundColor="#e21c2a">
     <ContentPage.BindingContext>
         <vm:ProductosViewModel/>
     </ContentPage.BindingContext>
     <ContentPage.Content>
-        <StackLayout>
-            <Label Text="Bienvenido usuario"></Label>
-            <Label Text="{Binding Error}"></Label>
-            <CollectionView ItemsSource="{Binding Lista}">
-                <CollectionView.ItemTemplate>
-                    <DataTemplate>
-                        <Frame>
-                            <StackLayout>
-                                <Label Text="{Binding NombreProducto}"/>
-                                <Label Text="{Binding PrecioProducto}"/>
-                                <Label Text="{Binding TipoProducto}"/>
-                            </StackLayout>
-                        </Frame>
-                    </DataTemplate>
-                </CollectionView.ItemTemplate>
-            </CollectionView>
-        </StackLayout>
+        <Grid>
+            <Frame Margin="40" BackgroundColor="#FFFFFF" CornerRadius="20">
+                <StackLayout>
+                    <Label TextColor="#000000" FontSize="Title" HorizontalTextAlignment="Center" Text="Bienvenido usuario"></Label>
+                    <Label TextColor="#e21c2a" HorizontalOptions="Center" FontSize="Subtitle" Text="{Binding Error}"></Label>
+                    <Frame BackgroundColor="#e21c2a" HeightRequest="20" CornerRadius="20">
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="3*"/>
+                                <ColumnDefinition Width="3*"/>
+                                <ColumnDefinition Width="3*"/>
+                            </Grid.ColumnDefinitions>
+                            <Label Grid.Column="0" HorizontalTextAlignment="Center" TextColor="#FFFFFF" Text="Nombre"/>
+                            <Label Grid.Column="1" HorizontalTextAlignment="Center" TextColor="#FFFFFF" Text="Precio"/>
+                            <Label Grid.Column="2" HorizontalTextAlignment="Center" TextColor="#FFFFFF" Text="Tipo"/>
+                        </Grid>
+                    </Frame>
+                    <CollectionView ItemsSource="{Binding Lista}">
+                        <CollectionView.ItemTemplate>
+                            <DataTemplate>
+                                <Frame>
+                                    <Grid>
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="3*"/>
+                                            <ColumnDefinition Width="3*"/>
+                                            <ColumnDefinition Width="3*"/>
+                                        </Grid.ColumnDefinitions>
+                                        <Label Grid.Column="0" HorizontalTextAlignment="Center" TextColor="#000000" Text="{Binding NombreProducto}"/>
+                                        <Label Grid.Column="1" HorizontalTextAlignment="Center" TextColor="#000000" Text="{Binding PrecioProducto}"/>
+                                        <Label Grid.Column="2" HorizontalTextAlignment="Center" TextColor="#000000" Text="{Binding TipoProducto}"/>
+                                    </Grid>
+                                </Frame>
+                            </DataTemplate>
+                        </CollectionView.ItemTemplate>
+                    </CollectionView>
+                </StackLayout>
+            </Frame>
+        </Grid>
     </ContentPage.Content>
 </ContentPage>

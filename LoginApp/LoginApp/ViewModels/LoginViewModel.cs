@@ -46,7 +46,7 @@ namespace LoginApp.ViewModels
                 else { App.User.BackToLogin(); }
             }
             }
-            else { Error = "No esta conectado a internet..."; }
+            else { Error = "No esta conectado al internet..."; }
             Indicador = false;
 
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(""));

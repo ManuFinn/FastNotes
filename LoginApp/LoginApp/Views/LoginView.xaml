@@ -7,24 +7,23 @@
     <ContentPage.BindingContext>
         <vm:LoginViewModel/>
     </ContentPage.BindingContext>
-    <StackLayout>
-        <Frame HorizontalOptions="CenterAndExpand" VerticalOptions="CenterAndExpand" CornerRadius="20" BackgroundColor="#FFFFFF">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="2*"/>
+            <RowDefinition Height="4*"/>
+        </Grid.RowDefinitions>
+        <Image WidthRequest="300" VerticalOptions="Start" Margin="0,50,0,0" Source="logo.png"></Image>
+        <Frame Grid.Row="1" HorizontalOptions="CenterAndExpand" VerticalOptions="Start" CornerRadius="20" HeightRequest="160" WidthRequest="400" BackgroundColor="#FFFFFF">
             <StackLayout>
-                <Image ></Image>
                 <StackLayout>
-                    <Label>Usuario:</Label>
-                    <Entry Text="{Binding LoginModel.User}"></Entry>
-
-                    <Label>Contraseña:</Label>
-                    <Entry IsPassword="True" Text="{Binding LoginModel.Password}" ></Entry>
-
-                    <Label Text="{Binding Error}" TextColor="Red" HorizontalOptions="Center" FontSize="Small"></Label>
-
+                    <Entry TextColor="#000000" Placeholder="Usuario..." PlaceholderColor="Gray" FontSize="Large" Text="{Binding LoginModel.User}"></Entry>
+                    <Entry TextColor="#000000" Placeholder="Contraseña..." PlaceholderColor="Gray" FontSize="Large" IsPassword="True" Text="{Binding LoginModel.Password}" ></Entry>
+                    <Label Text="{Binding Error}" TextColor="#e21c2a" HorizontalOptions="Center" FontSize="Caption"></Label>
                     <ActivityIndicator IsVisible="{Binding Indicador}"></ActivityIndicator>
 
-                    <Button Command="{Binding LogInCommnad}" HorizontalOptions="Center" Text="Iniciar sesión"></Button>
+                    <Button Command="{Binding LogInCommnad}" BackgroundColor="#e21c2a" CornerRadius="20" BorderColor="#000000" VerticalOptions="End" HorizontalOptions="Center" Text="Iniciar sesión"></Button>
                 </StackLayout>
             </StackLayout>
         </Frame>
-    </StackLayout>
+    </Grid>
 </ContentPage>
