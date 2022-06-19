@@ -4,6 +4,11 @@ using Android.App;
 using Android.Content.PM;
 using Android.Runtime;
 using Android.OS;
+using Firebase.Messaging;
+using Firebase.Iid;
+using Android.Util;
+using Android.Gms.Common;
+using Plugin.FirebasePushNotification;
 
 namespace AppIntents.Droid
 {
@@ -15,6 +20,7 @@ namespace AppIntents.Droid
             base.OnCreate(savedInstanceState);
 
             Xamarin.Essentials.Platform.Init(this, savedInstanceState);
+            FirebasePushNotificationManager.ProcessIntent(this, Intent);
             global::Xamarin.Forms.Forms.Init(this, savedInstanceState);
             LoadApplication(new App());
         }

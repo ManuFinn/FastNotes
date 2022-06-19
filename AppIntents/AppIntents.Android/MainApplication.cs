@@ -5,6 +5,7 @@ using Android.Runtime;
 using Android.Views;
 using Android.Widget;
 using Plugin.CurrentActivity;
+using Plugin.FirebasePushNotification;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -22,6 +23,20 @@ namespace AppIntents.Droid
         {
             base.OnCreate();
             CrossCurrentActivity.Current.Init(this);
+
+            if (Build.VERSION.SdkInt >= Android.OS.BuildVersionCodes.O)
+            {
+                FirebasePushNotificationManager.DefaultNotificationChannelId = "FirebasePushNotificationChannel";
+                FirebasePushNotificationManager.DefaultNotificationChannelName = "General";
+            }
+
+            CrossFirebasePushNotification.Current.OnNotificationReceived += (s, p) =>
+            {
+
+
+            };
+
+
         }
     }
 }
