@@ -2,22 +2,29 @@
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:vm="clr-namespace:LoginApp.ViewModels"
-             x:Class="LoginApp.Views.LoginView">
+             x:Class="LoginApp.Views.LoginView"
+             BackgroundColor="#e21c2a">
     <ContentPage.BindingContext>
         <vm:LoginViewModel/>
     </ContentPage.BindingContext>
     <StackLayout>
-        <Label>Usuario:</Label>
-        <Entry Text="{Binding LoginModel.User}"></Entry>
+        <Frame HorizontalOptions="CenterAndExpand" VerticalOptions="CenterAndExpand" CornerRadius="20" BackgroundColor="#FFFFFF">
+            <StackLayout>
+                <Image ></Image>
+                <StackLayout>
+                    <Label>Usuario:</Label>
+                    <Entry Text="{Binding LoginModel.User}"></Entry>
 
-        <Label>Contraseña:</Label>
-        <Entry IsPassword="True" Text="{Binding LoginModel.Password}" ></Entry>
+                    <Label>Contraseña:</Label>
+                    <Entry IsPassword="True" Text="{Binding LoginModel.Password}" ></Entry>
 
-        <Label Text="{Binding Error}" TextColor="Red" HorizontalOptions="Center" FontSize="Small"></Label>
+                    <Label Text="{Binding Error}" TextColor="Red" HorizontalOptions="Center" FontSize="Small"></Label>
 
-        <ActivityIndicator IsVisible="{Binding Indicador}"></ActivityIndicator>
+                    <ActivityIndicator IsVisible="{Binding Indicador}"></ActivityIndicator>
 
-        <Button Command="{Binding LogInCommnad}" HorizontalOptions="Center" Text="Iniciar sesión"></Button>
-
+                    <Button Command="{Binding LogInCommnad}" HorizontalOptions="Center" Text="Iniciar sesión"></Button>
+                </StackLayout>
+            </StackLayout>
+        </Frame>
     </StackLayout>
 </ContentPage>

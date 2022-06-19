@@ -9,15 +9,15 @@
     <ContentPage.Content>
         <StackLayout>
             <Label Text="Bienvenido usuario"></Label>
+            <Label Text="{Binding Error}"></Label>
             <CollectionView ItemsSource="{Binding Lista}">
                 <CollectionView.ItemTemplate>
                     <DataTemplate>
                         <Frame>
                             <StackLayout>
-                                <Label Text="{Binding nombre_prodcuto}"/>
-                                <Label Text="{Binding precio_prodcuto}"/>
-                                <Label Text="{Binding tipo_prodcuto}"/>
-                                <Label Text="{Binding nombre_prodcuto}"/>
+                                <Label Text="{Binding NombreProducto}"/>
+                                <Label Text="{Binding PrecioProducto}"/>
+                                <Label Text="{Binding TipoProducto}"/>
                             </StackLayout>
                         </Frame>
                     </DataTemplate>

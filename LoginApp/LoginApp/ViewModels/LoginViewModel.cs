@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Text;
 using System.Windows.Input;
+using Xamarin.Essentials;
 using Xamarin.Forms;
 
 namespace LoginApp.ViewModels
@@ -26,8 +27,11 @@ namespace LoginApp.ViewModels
 
         private async void LogIn()
         {
-            Indicador = true;
+            
 
+            if(Connectivity.NetworkAccess == NetworkAccess.Internet)
+            { 
+                Indicador = true;
             if(string.IsNullOrWhiteSpace(LoginModel.User) || string.IsNullOrWhiteSpace(LoginModel.Password))
             {
                 Error = "Debe de escribir los datos para poder iniciar sesion.";
@@ -41,6 +45,8 @@ namespace LoginApp.ViewModels
                 }
                 else { App.User.BackToLogin(); }
             }
+            }
+            else { Error = "No esta conectado a internet..."; }
             Indicador = false;
 
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(""));

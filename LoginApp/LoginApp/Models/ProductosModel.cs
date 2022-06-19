@@ -12,12 +12,12 @@ namespace LoginApp.Models
         public int Id { get; set; }
 
         [NotNull]
-        public string nombre_prodcuto { get; set; }
+        public string NombreProducto { get; set; }
 
         [NotNull]
-        public decimal precio_prodcuto { get; set; }
+        public decimal PrecioProducto { get; set; }
 
         [NotNull]
-        public string tipo_prodcuto { get; set; }
+        public string TipoProducto { get; set; }
     }
 }
