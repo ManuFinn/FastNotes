@@ -133,7 +133,7 @@ namespace FastNotesAPI.Models
                     .HasMaxLength(300)
                     .HasColumnName("portada_vg");
 
-                entity.Property(e => e.Timestamp).HasColumnType("date");
+                entity.Property(e => e.Timestamp).HasColumnType("datetime");
             });
 
             OnModelCreatingPartial(modelBuilder);

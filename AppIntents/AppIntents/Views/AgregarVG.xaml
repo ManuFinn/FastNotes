@@ -1,12 +1,40 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="AppIntents.Views.AgregarVG">
+             xmlns:vm="clr-namespace:AppIntents.ViewModels" 
+             xmlns:m="clr-namespace:AppIntents.Models"
+             x:Class="AppIntents.Views.AgregarVG"
+             Title="Agregar nuevo videojuego...">
+    <ContentPage.BindingContext>
+        <vm:VideoGamesViewModel x:Name="nvm"/>
+    </ContentPage.BindingContext>
+    <ContentPage.ToolbarItems>
+        <ToolbarItem IconImageSource="cherckmark.png" Command="{Binding AgregarCommand}"/>
+    </ContentPage.ToolbarItems>
     <ContentPage.Content>
-        <StackLayout>
-            <Label Text="Welcome to Xamarin.Forms!"
-                VerticalOptions="CenterAndExpand" 
-                HorizontalOptions="CenterAndExpand" />
+        <StackLayout Margin="10">
+            <Frame BackgroundColor="#febf10"  BorderColor="{AppThemeBinding Dark=#00000, Light=#454545}">
+                <StackLayout>
+                    <Entry Grid.Row="0" TextColor="#000000" Placeholder="Título de la nota..." 
+                           PlaceholderColor="#616168" Text="{Binding VideoGame.NombreVg}" ></Entry>
+                    <Entry Grid.Row="0" TextColor="#000000" Placeholder="Título de la nota..." 
+                           PlaceholderColor="#616168" Text="{Binding VideoGame.DescripcionVg}" ></Entry>
+                    <DatePicker Date="{Binding VideoGame.FechaSalidaVg}" MinimumDate="2000-20-20"></DatePicker>
+                    <Entry Grid.Row="0" TextColor="#000000" Placeholder="Título de la nota..." 
+                           PlaceholderColor="#616168" Text="{Binding VideoGame.PortadaVg}" ></Entry>
+                    <Image HeightRequest="100" WidthRequest="100" Source="{Binding VideoGame.PortadaVg}"></Image>
+
+                    <StackLayout Grid.Row="2" BindableLayout.ItemsSource="{Binding Errors}" 
+                                 HorizontalOptions="Center">
+                        <BindableLayout.ItemTemplate>
+                            <DataTemplate x:DataType="m:ErrorModel">
+                                <Label TextColor="#d8453c" FontAttributes="Bold" FontSize="Medium" 
+                                       HorizontalTextAlignment="Center" Text="{Binding Error}"></Label>
+                            </DataTemplate>
+                        </BindableLayout.ItemTemplate>
+                    </StackLayout>
+                </StackLayout>
+            </Frame>
         </StackLayout>
     </ContentPage.Content>
 </ContentPage>

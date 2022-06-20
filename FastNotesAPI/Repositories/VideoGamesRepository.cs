@@ -68,10 +68,6 @@ namespace FastNotesAPI.Repositories
             {
                 validationErrors.Add("El videojuego no tiene nombre...");
             }
-            if (entity.FechaSalidaVg == DateTime.UtcNow)
-            {
-                validationErrors.Add("Debe de seleccionar una fecha valida...");
-            }
             return validationErrors.Count == 0;
         }
 

@@ -8,6 +8,7 @@ using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using Xamarin.Essentials;
+using Xamarin.Forms;
 
 namespace AppIntents.Services
 {
@@ -155,6 +156,7 @@ namespace AppIntents.Services
                 }
 
                 Console.WriteLine("Descargar Terminado");
+                DependencyService.Get<SnackInterface>().SnackbarShow("Se ha actualizado correctamente");
 
             }
         }
@@ -251,6 +253,7 @@ namespace AppIntents.Services
                     {
                         errores.Add("Error, no existe o no se encontro el videojuego...");
                         return errores;
+                        DependencyService.Get<SnackInterface>().SnackbarShow("El videojuego no existe o no se encontro...");
                     }
                     if (result.StatusCode == System.Net.HttpStatusCode.InternalServerError)
                     {
@@ -270,6 +273,7 @@ namespace AppIntents.Services
             else
             {
                 errores.Add("Error de conexion, intente conectarse a otra red WiFi.");
+                DependencyService.Get<SnackInterface>().SnackbarShow("Error de conexion, intente conectandose a otra red...");
                 return null;
             }
         }

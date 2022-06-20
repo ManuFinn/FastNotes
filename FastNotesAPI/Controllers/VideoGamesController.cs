@@ -56,8 +56,8 @@ namespace FastNotesAPI.Controllers
         [HttpPost("sincronizar")]
         public IActionResult Post([FromBody] DateTime fecha)
         {
-            var notas = repo.GetAllSinceDate(fecha.ToMexicoTime());
-            return Ok(notas.Select(x => new
+            var vg = repo.GetAllSinceDate(fecha.ToMexicoTime());
+            return Ok(vg.Select(x => new
             {
                 x.Id,
                 x.NombreVg,

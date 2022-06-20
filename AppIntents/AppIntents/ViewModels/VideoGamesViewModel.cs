@@ -37,6 +37,8 @@ namespace AppIntents.ViewModels
             set { errors = value; PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(Errors))); }
         }
 
+        public Date MinDate { get;: }
+
         public Command VistaAgregarCommand { get; set; }
         public Command VistaEditarCommand { get; set; }
         public Command AgregarCommand { get; set; }
@@ -113,8 +115,14 @@ namespace AppIntents.ViewModels
         {
             var result = await App.Sincronizador.Agregar(VideoGame);
 
-            if (result == null) { await Application.Current.MainPage.Navigation.PopAsync(); }
-            else { Errors = result.Select(x => new ErrorModel { Error = x }).ToList(); }
+            if (result == null) { 
+                await Application.Current.MainPage.Navigation.PopAsync();
+                DependencyService.Get<Toast>().show("Se ha agrego el videojuego...");
+            }
+            else { 
+                Errors = result.Select(x => new ErrorModel { Error = x }).ToList(); 
+
+            }
         }
 
         private async void Eliminar(object n)
@@ -125,13 +133,17 @@ namespace AppIntents.ViewModels
             {
                 var res = await App.Sincronizador.Eliminar(nota);
                 if (res != null) { await Application.Current.MainPage.DisplayAlert("Error", String.Join("\n", res), "Aceptar"); }
+                DependencyService.Get<Toast>().show("Se ha eliminado el videojuego...");
             }
         }
 
         private async void Editar()
         {
             var res = await App.Sincronizador.Editar(VideoGame);
-            if (res == null) { await Application.Current.MainPage.Navigation.PopAsync(); }
+            if (res == null) { 
+                await Application.Current.MainPage.Navigation.PopAsync();
+                DependencyService.Get<Toast>().show("Se ha editado el videojuego...");
+            }
             else { Errors = res.Select(x => new ErrorModel { Error = x }).ToList(); }
         }
 
