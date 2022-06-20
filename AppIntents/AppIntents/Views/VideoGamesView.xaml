@@ -1,12 +1,41 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:vm="clr-namespace:AppIntents.ViewModels"
              x:Class="AppIntents.Views.VideoGamesView">
-    <ContentPage.Content>
-        <StackLayout>
-            <Label Text="Welcome to Xamarin.Forms!"
-                VerticalOptions="CenterAndExpand" 
-                HorizontalOptions="CenterAndExpand" />
-        </StackLayout>
-    </ContentPage.Content>
+    <ContentPage.BindingContext>
+        <vm:VideoGamesViewModel x:Name="nvm"/>
+    </ContentPage.BindingContext>
+    <ContentPage.ToolbarItems>
+        <ToolbarItem IconImageSource="plus.png" Command="{Binding VistaAgregarCommand}"/>
+    </ContentPage.ToolbarItems>
+    <StackLayout>
+        <CollectionView ItemsSource="{Binding Catalogo}" Margin="10">
+            <CollectionView.ItemTemplate>
+                <DataTemplate>
+                    <SwipeView>
+                        <SwipeView.RightItems>
+                            <SwipeItem Command="{Binding Source={x:Reference nvm}, Path=VistaEditarCommand}"                                    
+                                   CommandParameter="{Binding .}"
+                                   IconImageSource="pencil.png" Text="Editar"  BackgroundColor="#7d5e07" ></SwipeItem>
+                        </SwipeView.RightItems>
+                        <SwipeView.LeftItems>
+                            <SwipeItem Command="{Binding Source={x:Reference nvm}, Path=EliminarCommand}"                                    
+                                   CommandParameter="{Binding .}" 
+                                       IconImageSource="trash.png" Text="Elimiar" BackgroundColor="#7d5e07"></SwipeItem>
+                        </SwipeView.LeftItems>
+
+                        <Frame BackgroundColor="#febf10" BorderColor="{AppThemeBinding Dark=#00000, Light=#454545}" Margin="2">
+                            <StackLayout>
+                                <Label FontAttributes="Bold" FontSize="Large" TextColor="#000000" Text="{Binding NombreVg}"></Label>
+                                <Label FontSize="Subtitle" TextColor="#000000" Text="{Binding DescripcionVg}"></Label>
+                                <Label FontAttributes="Bold" FontSize="Large" TextColor="#000000" Text="{Binding FechaSalidaVg}"></Label>
+                                <Image Source="{Binding PortadaVg}" HeightRequest="20" WidthRequest="20"></Image>
+                            </StackLayout>
+                        </Frame>
+                    </SwipeView>
+                </DataTemplate>
+            </CollectionView.ItemTemplate>
+        </CollectionView>
+    </StackLayout>
 </ContentPage>

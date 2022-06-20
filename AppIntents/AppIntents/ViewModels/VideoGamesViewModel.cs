@@ -2,9 +2,11 @@
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
+using System.Linq;
 using System.Net.Http;
 using System.Text;
 using AppIntents.Models;
+using AppIntents.Services;
 using AppIntents.Views;
 using Newtonsoft.Json;
 using Xamarin.Essentials;
@@ -17,29 +19,26 @@ namespace AppIntents.ViewModels
         AgregarVG vistaAgregar;
         EditarVG vistaEditar;
 
-        public ObservableCollection<VideogameT> Lista { get; set; } = new ObservableCollection<VideogameT>();
+        public ObservableCollection<VideogameT> Catalogo { get; set; } = new ObservableCollection<VideogameT>();
 
         VideogameT vgT;
 
-        public VideogameT VGT
+        public VideogameT VideoGame
         {
             get { return vgT; }
-            set { vgT = value; PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(vgT))); }
+            set { vgT = value; PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(VideoGame))); }
         }
 
-        private string error;
+        private List<ErrorModel> errors;
 
-        public string Error 
-        { 
-            get { return error; }
-            set { error = value; PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(Error))); } 
-        }
-
-        static HttpClient client = new HttpClient()
+        public List<ErrorModel> Errors
         {
-            BaseAddress = new Uri("https://181g0250.81g.itesrc.net")
-        };
+            get { return errors; }
+            set { errors = value; PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(Errors))); }
+        }
 
+        public Command VistaAgregarCommand { get; set; }
+        public Command VistaEditarCommand { get; set; }
         public Command AgregarCommand { get; set; }
         public Command EditarCommand { get; set; }
         public Command EliminarCommand { get; set; }
@@ -47,36 +46,55 @@ namespace AppIntents.ViewModels
 
         public VideoGamesViewModel()
         {
-            CargarDatos();
             CancelarCommand = new Command(Cancelar);
             EditarCommand = new Command(Editar);
             EliminarCommand = new Command(Eliminar);
             AgregarCommand = new Command(Agregar);
+            VistaAgregarCommand = new Command(VerAgregarAsync);
+            VistaEditarCommand = new Command(VerEditarAsync);
+
+            SincronizadorServices.ActuializacionRealizada += SincronizadorService_ActualizacionRealizada;
+            SincronizadorService_ActualizacionRealizada();
         }
 
-        async void CargarDatos()
+        private void SincronizadorService_ActualizacionRealizada()
         {
-            if (Connectivity.NetworkAccess == NetworkAccess.Internet)
+            var videgogos = App.Catalogo.GetAll().ToList();
+
+            foreach (var vge in App.Sincronizador.Buffer)
             {
-                var result = await client.GetAsync("api/VideoGames");
-                string json = await result.Content.ReadAsStringAsync();
-
-                List<VideogameT> productos = JsonConvert.DeserializeObject<List<VideogameT>>(json);
-
-                foreach (var item in productos)
+                if (vge.Estado == Estado.Agregado) { videgogos.Insert(0, vge.VideoGameT); }
+                else if (vge.Estado == Estado.Modificado)
                 {
-                    Lista.Add(item);
+                    var vg = videgogos.FirstOrDefault(x => x.Id == vge.VideoGameT.Id);
+                    if (vg != null)
+                    {
+                        vg.NombreVg = vge.VideoGameT.NombreVg;
+                        vg.DescripcionVg = vge.VideoGameT.DescripcionVg;
+                        vg.PortadaVg = vge.VideoGameT.PortadaVg;
+                        vg.FechaSalidaVg = vge.VideoGameT.FechaSalidaVg;
+                    }
+                }
+                else
+                {
+                    var vg = Catalogo.FirstOrDefault(x => x.Id == vge.VideoGameT.Id);
+                    if (vg != null) { videgogos.Remove(vg); }
                 }
             }
-            else { Error = "No esta conectado a internet..."; }
+
+            Catalogo.Clear();
+            foreach (var item in videgogos.OrderByDescending(x => x.Id))
+            {
+                Catalogo.Add(item);
+            }
         }
 
         private async void VerAgregarAsync()
         {
             if (vistaAgregar == null) { vistaAgregar = new AgregarVG() { BindingContext = this }; }
 
-            VGT = new VideogameT();
-            Error = null;
+            VideoGame = new VideogameT();
+            Errors = null;
 
             await Application.Current.MainPage.Navigation.PushAsync(vistaAgregar);
         }
@@ -85,42 +103,42 @@ namespace AppIntents.ViewModels
         {
             if (vistaEditar == null) { vistaEditar = new EditarVG() { BindingContext = this }; }
 
-            VGT = vg as VideogameT;
-            Error = null;
+            VideoGame = vg as VideogameT;
+            Errors = null;
 
             await Application.Current.MainPage.Navigation.PushAsync(vistaEditar);
         }
 
         private async void Agregar()
         {
-            //var result = await App.Sincronizador.Agregar(Nota);
+            var result = await App.Sincronizador.Agregar(VideoGame);
 
-            //if (result == null) { await Application.Current.MainPage.Navigation.PopAsync(); }
-            //else { Errors = result.Select(x => new ErrorModel { Error = x }).ToList(); }
+            if (result == null) { await Application.Current.MainPage.Navigation.PopAsync(); }
+            else { Errors = result.Select(x => new ErrorModel { Error = x }).ToList(); }
         }
 
         private async void Eliminar(object n)
         {
-            //var nota = n as Notas;
-            //var x = await Application.Current.MainPage.DisplayAlert("Confirmar:", $"Seguro de eliminar la nota?", "Si", "No");
-            //if (x)
-            //{
-            //    var res = await App.Sincronizador.Eliminar(nota);
-            //    if (res != null) { await Application.Current.MainPage.DisplayAlert("Error", String.Join("\n", res), "Aceptar"); }
-            //}
+            var nota = n as VideogameT;
+            var x = await Application.Current.MainPage.DisplayAlert("Confirmar:", $"Seguro de eliminar la nota?", "Si", "No");
+            if (x)
+            {
+                var res = await App.Sincronizador.Eliminar(nota);
+                if (res != null) { await Application.Current.MainPage.DisplayAlert("Error", String.Join("\n", res), "Aceptar"); }
+            }
         }
 
         private async void Editar()
         {
-            //var res = await App.Sincronizador.Editar(Nota);
-            //if (res == null) { await Application.Current.MainPage.Navigation.PopAsync(); }
-            //else { Errors = res.Select(x => new ErrorModel { Error = x }).ToList(); }
+            var res = await App.Sincronizador.Editar(VideoGame);
+            if (res == null) { await Application.Current.MainPage.Navigation.PopAsync(); }
+            else { Errors = res.Select(x => new ErrorModel { Error = x }).ToList(); }
         }
 
         private void Cancelar()
         {
-            //Nota = null;
-            //Application.Current.MainPage.Navigation.PopAsync();
+            VideoGame = null;
+            Application.Current.MainPage.Navigation.PopAsync();
         }
 
         public event PropertyChangedEventHandler PropertyChanged;

@@ -41,7 +41,7 @@ namespace LoginApp.ViewModels
                 Lista.Add(item);
             }
             }
-            else { Error = "No esta conectado a internet..."; }
+            else { Error = "No esta conectado al internet..."; }
 
         }
 

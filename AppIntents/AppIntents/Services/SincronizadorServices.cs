@@ -1,24 +1,23 @@
-﻿using MyNotes.Models;
+﻿using AppIntents.Models;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Linq;
 using System.Net.Http;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using Xamarin.Essentials;
 
-namespace MyNotes.Services
+namespace AppIntents.Services
 {
     public class SincronizadorServices
     {
         public static event Action ActuializacionRealizada;
 
-        public List<NotasEntity> Buffer { get; set; }
+        public List<VideoGamesEntity> Buffer { get; set; }
 
-        string API = "https://181g0250.81g.itesrc.net/api/notas";
+        string API = "https://181g0250.81g.itesrc.net/api/VideoGames";
 
         static HttpClient client = new HttpClient()
         {
@@ -27,17 +26,17 @@ namespace MyNotes.Services
 
         string key = "FechaUltimaActualizacion";
 
-        public ListaNotas Lista { get; set; }
+        public CatalogoVideoGames Catalogo { get; set; }
 
-        public SincronizadorServices(ListaNotas n)
+        public SincronizadorServices(CatalogoVideoGames c)
         {
             Connectivity.ConnectivityChanged += Connectivity_ConnectivityChanged;
 
-            Lista = n;
+            Catalogo = c;
 
             DeserializarBuffer();
 
-            if (!Preferences.ContainsKey("FechaUltimaActualizacion"))
+            if (!Preferences.ContainsKey(key))
             {
                 _ = DescargarPrimeraVezAsync();
                 Sincronizar();
@@ -52,26 +51,21 @@ namespace MyNotes.Services
 
         async Task DescargarPrimeraVezAsync() ///Este si funciona, ya no moverle Jean del futuro
         {
-            if(Connectivity.NetworkAccess == NetworkAccess.Internet)
+            if (Connectivity.NetworkAccess == NetworkAccess.Internet)
             {
                 var fecha = DateTime.Now;
-                var result = await client.GetAsync(API);
+                var result = await client.GetAsync("api/VideoGames");
 
-                var a = "pipo";
 
-                if(result.IsSuccessStatusCode)
+                if (result.IsSuccessStatusCode)
                 {
                     Preferences.Set("FechaUltimaActualizacion", fecha);
                     string json = await result.Content.ReadAsStringAsync();
-                    List<Notas> notas = JsonConvert.DeserializeObject<List<Notas>>(json);
+                    List<VideogameT> videogogos = JsonConvert.DeserializeObject<List<VideogameT>>(json);
 
-                    var orden = from s in notas
-                            orderby s.Id descending
-                            select s;
+                    videogogos.ForEach(x => Catalogo.InsertOrReplace(x));
 
-                    notas.ForEach(x => Lista.InsertOrReplace(x));
-
-                    if(notas.Count > 0) { LanzarEvento(); }
+                    if (videogogos.Count > 0) { LanzarEvento(); }
                 }
             }
         }
@@ -86,7 +80,7 @@ namespace MyNotes.Services
 
         async void hiloSincronizador()
         {
-            while(true)
+            while (true)
             {
                 await Descargar();
                 Thread.Sleep(TimeSpan.FromMinutes(1));
@@ -95,27 +89,27 @@ namespace MyNotes.Services
 
         async Task CargarBuffer()
         {
-            if(Connectivity.NetworkAccess == NetworkAccess.Internet)
+            if (Connectivity.NetworkAccess == NetworkAccess.Internet)
             {
-                if(Buffer.Count > 0)
+                if (Buffer.Count > 0)
                 {
                     Console.WriteLine("CargarBuffer Iniciado");
 
-                    foreach (var ne in Buffer.ToArray())
+                    foreach (var vge in Buffer.ToArray())
                     {
-                        switch (ne.Estado)
+                        switch (vge.Estado)
                         {
                             case Estado.Agregado:
-                                var result = await EnviarAPI(ne.Nota, HttpMethod.Post);
-                                Buffer.Remove(ne);
+                                var result = await EnviarAPI(vge.VideoGameT, HttpMethod.Post);
+                                Buffer.Remove(vge);
                                 break;
                             case Estado.Modificado:
-                                await EnviarAPI(ne.Nota, HttpMethod.Put);
-                                Buffer.Remove(ne);
+                                await EnviarAPI(vge.VideoGameT, HttpMethod.Put);
+                                Buffer.Remove(vge);
                                 break;
                             case Estado.Eliminado:
-                                await EnviarAPI(ne.Nota, HttpMethod.Delete);
-                                Buffer.Remove(ne);
+                                await EnviarAPI(vge.VideoGameT, HttpMethod.Delete);
+                                Buffer.Remove(vge);
                                 break;
                         }
                     }
@@ -141,23 +135,23 @@ namespace MyNotes.Services
 
                 var fecha = DateTime.Now;
 
-                var resp = await client.PostAsync("api/notas/sincronizar", 
+                var resp = await client.PostAsync("api/VideoGames/sincronizar",
                     new StringContent(json, Encoding.UTF8, "application/json"));
 
-                if(resp.IsSuccessStatusCode)
+                if (resp.IsSuccessStatusCode)
                 {
                     var datos = await resp.Content.ReadAsStringAsync();
 
-                    List<Notas> lista = JsonConvert.DeserializeObject<List<Notas>>(datos);
+                    List<VideogameT> lista = JsonConvert.DeserializeObject<List<VideogameT>>(datos);
 
                     foreach (var item in lista)
                     {
-                        Lista.InsertOrReplace(item);
+                        Catalogo.InsertOrReplace(item);
                     }
 
                     Preferences.Set("FechaUltimaActualizacion", fecha);
 
-                    if(lista.Count > 0) { LanzarEvento(); }
+                    if (lista.Count > 0) { LanzarEvento(); }
                 }
 
                 Console.WriteLine("Descargar Terminado");
@@ -165,100 +159,100 @@ namespace MyNotes.Services
             }
         }
 
-        public async Task<List<string>> Agregar(Notas n)
-        {
-            if (Connectivity.NetworkAccess == NetworkAccess.Internet) 
-            { 
-                var postito = await EnviarAPI(n, HttpMethod.Post);
-                await Descargar();
-                return postito;
-            }
-            else
-            {
-                NotasEntity nE = new NotasEntity();
-                nE.Nota = n;
-                nE.Estado = Estado.Agregado;
-                Buffer.Add(nE);
-                SerializarBuffer();
-                LanzarEvento();
-                return null;
-            }
-        }
-
-        public async Task<List<string>> Editar(Notas n)
+        public async Task<List<string>> Agregar(VideogameT vgt)
         {
             if (Connectivity.NetworkAccess == NetworkAccess.Internet)
             {
-                var postito = await EnviarAPI(n, HttpMethod.Put);
+                var postito = await EnviarAPI(vgt, HttpMethod.Post);
                 await Descargar();
                 return postito;
             }
             else
             {
-                NotasEntity nE = new NotasEntity();
-                nE.Nota = n;
-                nE.Estado = Estado.Modificado;
-                Buffer.Add(nE);
+                VideoGamesEntity vge = new VideoGamesEntity();
+                vge.VideoGameT = vgt;
+                vge.Estado = Estado.Agregado;
+                Buffer.Add(vge);
                 SerializarBuffer();
                 LanzarEvento();
                 return null;
             }
         }
 
-        public async Task<List<string>> Eliminar(Notas n)
+        public async Task<List<string>> Editar(VideogameT vgt)
         {
             if (Connectivity.NetworkAccess == NetworkAccess.Internet)
             {
-                var postito = await EnviarAPI(n, HttpMethod.Delete);
+                var postito = await EnviarAPI(vgt, HttpMethod.Put);
                 await Descargar();
                 return postito;
             }
             else
             {
-                NotasEntity nE = new NotasEntity();
-                nE.Nota = n;
-                nE.Estado = Estado.Eliminado;
-                Buffer.Add(nE);
+                VideoGamesEntity vge = new VideoGamesEntity();
+                vge.VideoGameT = vgt;
+                vge.Estado = Estado.Modificado;
+                Buffer.Add(vge);
                 SerializarBuffer();
                 LanzarEvento();
                 return null;
             }
         }
 
-        private async Task<List<string>> EnviarAPI(Notas n, HttpMethod method)
+        public async Task<List<string>> Eliminar(VideogameT vgt)
+        {
+            if (Connectivity.NetworkAccess == NetworkAccess.Internet)
+            {
+                var postito = await EnviarAPI(vgt, HttpMethod.Delete);
+                await Descargar();
+                return postito;
+            }
+            else
+            {
+                VideoGamesEntity vge = new VideoGamesEntity();
+                vge.VideoGameT = vgt;
+                vge.Estado = Estado.Eliminado;
+                Buffer.Add(vge);
+                SerializarBuffer();
+                LanzarEvento();
+                return null;
+            }
+        }
+
+        private async Task<List<string>> EnviarAPI(VideogameT vgt, HttpMethod method)
         {
             List<string> errores = new List<string>();
 
-            if(Connectivity.NetworkAccess == NetworkAccess.Internet)
+            if (Connectivity.NetworkAccess == NetworkAccess.Internet)
             {
                 try
                 {
-                    string json = JsonConvert.SerializeObject(n);
+                    string json = JsonConvert.SerializeObject(vgt);
 
                     HttpRequestMessage request = new HttpRequestMessage();
                     request.Method = method;
-                    request.RequestUri = new Uri(client.BaseAddress + "api/notas");
+                    request.RequestUri = new Uri(client.BaseAddress + "api/VideoGames");
                     request.Content = new StringContent(json, Encoding.UTF8, "application/json");
 
                     var result = await client.SendAsync(request);
 
-                    if(result.IsSuccessStatusCode)
+                    if (result.IsSuccessStatusCode)
                     {
                         //await Descargar();
                         return null;
                     }
-                    if(result.StatusCode == System.Net.HttpStatusCode.BadRequest)
+                    if (result.StatusCode == System.Net.HttpStatusCode.BadRequest)
                     {
                         json = await result.Content.ReadAsStringAsync();
                         var lista = JsonConvert.DeserializeObject<List<string>>(json);
                         return lista;
                     }
-                    if(result.StatusCode == System.Net.HttpStatusCode.NotFound)
+                    if (result.StatusCode == System.Net.HttpStatusCode.NotFound)
                     {
-                        errores.Add("Error, no existe o no se encontro la nota.");
+                        errores.Add("Error, no existe o no se encontro el videojuego...");
                         return errores;
                     }
-                    if(result.StatusCode == System.Net.HttpStatusCode.InternalServerError)
+                    if (result.StatusCode == System.Net.HttpStatusCode.InternalServerError)
                     {
                         json = await result.Content.ReadAsStringAsync();
                         var mensaje = JsonConvert.DeserializeObject<string>(json);
@@ -301,12 +295,13 @@ namespace MyNotes.Services
                 if (File.Exists(ruta))
                 {
                     var json = File.ReadAllText(ruta);
-                    Buffer = JsonConvert.DeserializeObject<List<NotasEntity>>(json);
+                    Buffer = JsonConvert.DeserializeObject<List<VideoGamesEntity>>(json);
                 }
-                else { Buffer = new List<NotasEntity>(); }
+                else { Buffer = new List<VideoGamesEntity>(); }
             }
-            catch { Buffer = new List<NotasEntity>(); }
+            catch { Buffer = new List<VideoGamesEntity>(); }
         }
+
 
 
     }

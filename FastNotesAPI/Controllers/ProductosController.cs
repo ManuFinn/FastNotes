@@ -23,9 +23,9 @@ namespace FastNotesAPI.Controllers
         [HttpGet]
         public IActionResult Get()
         {
-            var notas = repo.GetAll();
+            var productos = repo.GetAll();
 
-            return Ok(notas);
+            return Ok(productos);
         }
 
 

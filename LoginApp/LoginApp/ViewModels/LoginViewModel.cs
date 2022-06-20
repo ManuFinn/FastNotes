@@ -41,7 +41,7 @@ namespace LoginApp.ViewModels
                 var result = await App.User.IniciarSesion(LoginModel);
                 if(!result)
                 {
-                    Error = "El usuario o la contraseña es incorrecta";
+                    Error = "El usuario o la contrasña es incorrecta";
                 }
                 else { App.User.BackToLogin(); }
             }

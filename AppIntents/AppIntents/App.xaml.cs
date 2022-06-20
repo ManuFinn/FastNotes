@@ -1,4 +1,6 @@
-﻿using Plugin.FirebasePushNotification;
+﻿using AppIntents.Models;
+using AppIntents.Services;
+using Plugin.FirebasePushNotification;
 using System;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
@@ -7,9 +9,18 @@ namespace AppIntents
 {
     public partial class App : Application
     {
+        public static CatalogoVideoGames Catalogo { get; set; } = new CatalogoVideoGames();
+
+        public static SincronizadorServices Sincronizador { get; set; }
+
         public App()
         {
             InitializeComponent();
+
+            Sincronizador = new SincronizadorServices(Catalogo);
+
+            MainPage = new NavigationPage(new Views.VideoGamesView());
+
 
             CrossFirebasePushNotification.Current.OnTokenRefresh += (s, p) =>
             {
@@ -44,7 +55,6 @@ namespace AppIntents
 
             };
 
-            MainPage = new MainPage();
         }
 
         protected override void OnStart()

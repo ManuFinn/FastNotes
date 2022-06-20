@@ -9,7 +9,7 @@ namespace FastNotesAPI.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class VideoGamesController : Controller
+    public class VideoGamesController : ControllerBase
     {
         public itesrcne_181g0250Context Context { get; set; }
 

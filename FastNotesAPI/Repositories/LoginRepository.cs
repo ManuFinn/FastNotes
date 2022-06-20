@@ -4,13 +4,13 @@ using System.Collections.Generic;
 
 namespace FastNotesAPI.Repositories
 {
-    public class LoginRepository : Repository<LoginModel>
+    public class LoginRepository : Repository<UsersT>
     {
         public LoginRepository(DbContext context) : base(context)
         {
         }
 
-        public override IEnumerable<LoginModel> GetAll()
+        public override IEnumerable<UsersT> GetAll()
         {
             return base.GetAll();
         }

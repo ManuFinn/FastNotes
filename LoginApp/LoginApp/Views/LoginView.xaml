@@ -12,7 +12,7 @@
             <RowDefinition Height="2*"/>
             <RowDefinition Height="4*"/>
         </Grid.RowDefinitions>
-        <Image WidthRequest="300" VerticalOptions="Start" Margin="0,50,0,0" Source="logo.png"></Image>
+        <Image BackgroundColor="#e21c2a" WidthRequest="300" VerticalOptions="Start" Margin="0,50,0,0" Source="logo.png"></Image>
         <Frame Grid.Row="1" HorizontalOptions="CenterAndExpand" VerticalOptions="Start" CornerRadius="20" HeightRequest="160" WidthRequest="400" BackgroundColor="#FFFFFF">
             <StackLayout>
                 <StackLayout>
@@ -21,7 +21,7 @@
                     <Label Text="{Binding Error}" TextColor="#e21c2a" HorizontalOptions="Center" FontSize="Caption"></Label>
                     <ActivityIndicator IsVisible="{Binding Indicador}"></ActivityIndicator>
 
-                    <Button Command="{Binding LogInCommnad}" BackgroundColor="#e21c2a" CornerRadius="20" BorderColor="#000000" VerticalOptions="End" HorizontalOptions="Center" Text="Iniciar sesión"></Button>
+                    <Button Command="{Binding LogInCommnad}" TextColor="#FFFFFF" BackgroundColor="#e21c2a" CornerRadius="20" BorderColor="#000000" VerticalOptions="End" HorizontalOptions="Center" Text="Iniciar sesión"></Button>
                 </StackLayout>
             </StackLayout>
         </Frame>

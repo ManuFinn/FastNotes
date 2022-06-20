@@ -28,16 +28,16 @@ namespace MyNotes.Models
 
             if(nota == null)
             {
-                if (nO.Contenido != null) { Conexion.Insert(nO); } //Create
+                if (nO.Contenido != null) { Conexion.Insert(nO); }
             }
             else if (nO.Contenido != null) 
             { 
                 nota.Contenido = nO.Contenido; 
                 nota.Titulo = nO.Titulo;
                 nota.Id = nO.Id;
-                Conexion.Update(nota); //Update
+                Conexion.Update(nota); 
             }
-            else { Conexion.Delete(nota); } //Delete
+            else { Conexion.Delete(nota); } 
         }
     }
 }
