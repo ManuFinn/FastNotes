@@ -12,5 +12,7 @@ namespace FastNotesAPI.Models
         public string DescripcionVg { get; set; }
         public DateTime FechaSalidaVg { get; set; }
         public string PortadaVg { get; set; }
+        public ulong Eliminado { get; set; }
+        public DateTime? Timestamp { get; set; }
     }
 }

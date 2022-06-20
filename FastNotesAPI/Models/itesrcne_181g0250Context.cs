@@ -25,10 +25,7 @@ namespace FastNotesAPI.Models
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            if (!optionsBuilder.IsConfigured)
-            {
-                optionsBuilder.UseMySql("server=204.93.216.11;database=itesrcne_181g0250;user=itesrcne_jean;password=181G0250", Microsoft.EntityFrameworkCore.ServerVersion.Parse("10.3.29-mariadb"));
-            }
+
         }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
@@ -121,6 +118,8 @@ namespace FastNotesAPI.Models
                     .HasMaxLength(180)
                     .HasColumnName("descripcion_vg");
 
+                entity.Property(e => e.Eliminado).HasColumnType("bit(1)");
+
                 entity.Property(e => e.FechaSalidaVg)
                     .HasColumnType("datetime")
                     .HasColumnName("fechaSalida_vg");
@@ -133,6 +132,8 @@ namespace FastNotesAPI.Models
                 entity.Property(e => e.PortadaVg)
                     .HasMaxLength(300)
                     .HasColumnName("portada_vg");
+
+                entity.Property(e => e.Timestamp).HasColumnType("date");
             });
 
             OnModelCreatingPartial(modelBuilder);

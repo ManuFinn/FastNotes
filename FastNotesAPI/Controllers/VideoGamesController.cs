@@ -3,6 +3,7 @@ using FastNotesAPI.Repositories;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace FastNotesAPI.Controllers
 {
@@ -24,15 +25,46 @@ namespace FastNotesAPI.Controllers
         public IActionResult Get()
         {
             var vg = repo.GetAll();
-            return Ok(vg);
+            return Ok(vg.Select(x => new
+            {
+                x.Id,
+                x.NombreVg,
+                x.DescripcionVg,
+                x.PortadaVg,
+                x.FechaSalidaVg
+            }));
         }
 
         [HttpGet("{id}")]
         public IActionResult Get(int id)
         {
             var vg = repo.Get(id);
-            if(vg == null) { return NotFound(); }
-            else return Ok(vg);
+            if (vg == null) { return NotFound(); }
+            else
+            {
+                return Ok(new
+                {
+                    vg.Id,
+                    vg.NombreVg,
+                    vg.DescripcionVg,
+                    vg.PortadaVg,
+                    vg.FechaSalidaVg
+                });
+            }
+        }
+
+        [HttpPost("sincronizar")]
+        public IActionResult Post([FromBody] DateTime fecha)
+        {
+            var notas = repo.GetAllSinceDate(fecha.ToMexicoTime());
+            return Ok(notas.Select(x => new
+            {
+                x.Id,
+                x.NombreVg,
+                x.DescripcionVg,
+                x.PortadaVg,
+                x.FechaSalidaVg
+            }));
         }
 
         [HttpPost]
