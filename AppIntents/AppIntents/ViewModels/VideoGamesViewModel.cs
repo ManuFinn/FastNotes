@@ -37,7 +37,9 @@ namespace AppIntents.ViewModels
             set { errors = value; PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(Errors))); }
         }
 
-        public Date MinDate { get;: }
+        public DateTime MinDate { get; set; } = DateTime.Now;
+
+        public DateTime MaxDate { get; set; } = DateTime.Now.AddYears(5);
 
         public Command VistaAgregarCommand { get; set; }
         public Command VistaEditarCommand { get; set; }
@@ -128,7 +130,7 @@ namespace AppIntents.ViewModels
         private async void Eliminar(object n)
         {
             var nota = n as VideogameT;
-            var x = await Application.Current.MainPage.DisplayAlert("Confirmar:", $"Seguro de eliminar la nota?", "Si", "No");
+            var x = await Application.Current.MainPage.DisplayAlert("Confirmar:", $"Seguro de eliminar el videojuego?", "Si", "No");
             if (x)
             {
                 var res = await App.Sincronizador.Eliminar(nota);

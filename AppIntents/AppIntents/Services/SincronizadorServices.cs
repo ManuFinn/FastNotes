@@ -156,7 +156,7 @@ namespace AppIntents.Services
                 }
 
                 Console.WriteLine("Descargar Terminado");
-                DependencyService.Get<SnackInterface>().SnackbarShow("Se ha actualizado correctamente");
+                //DependencyService.Get<SnackInterface>().SnackbarShow("Se ha actualizado correctamente");
 
             }
         }
@@ -253,7 +253,7 @@ namespace AppIntents.Services
                     {
                         errores.Add("Error, no existe o no se encontro el videojuego...");
                         return errores;
-                        DependencyService.Get<SnackInterface>().SnackbarShow("El videojuego no existe o no se encontro...");
+                        //DependencyService.Get<SnackInterface>().SnackbarShow("El videojuego no existe o no se encontro...");
                     }
                     if (result.StatusCode == System.Net.HttpStatusCode.InternalServerError)
                     {

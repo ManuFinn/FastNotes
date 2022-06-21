@@ -27,10 +27,11 @@
                                        IconImageSource="trash.png" Text="Elimiar" BackgroundColor="#1e1e1e"></SwipeItem>
                         </SwipeView.LeftItems>
 
-                        <Frame  Margin="2" Padding="0">
-                            <StackLayout Orientation="Horizontal">
-                                <Image HeightRequest="100" WidthRequest="100" Aspect="Fill" Source="{Binding PortadaVg}"/>
-                                <Label Grid.Column="1" HorizontalTextAlignment="Center" VerticalTextAlignment="Center" 
+                        <Frame Padding="0">
+                            <StackLayout Orientation="Horizontal" Spacing="0">
+
+                                    <Image HeightRequest="100" WidthRequest="100" Aspect="Fill" Source="{Binding PortadaVg}"/>
+                                    <Label Grid.Column="1" HorizontalTextAlignment="Center" VerticalTextAlignment="Center" 
                                        BackgroundColor="#3d3d3d" FontAttributes="Bold" FontSize="Large" WidthRequest="1000" TextColor="#FFFFFF" Text="{Binding NombreVg}"/>
                             </StackLayout>
                         </Frame>

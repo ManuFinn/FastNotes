@@ -13,6 +13,13 @@
     <item name="colorPrimaryDark">#1e1e1e</item>
      colorAccent is used as the default value for colorControlActivated
          which is used to tint widgets 
-    <item name="colorAccent">#FF4081</item>
+    <item name="colorAccent">#7160e8</item>
   </style>
+	<style name="SplashTheme" parent="Theme.AppCompat.Light.NoActionBar">
+		<item name="android:windowBackground">@drawable/splash_screen</item>
+		<item name="android:windowNoTitle">true</item>
+		<item name="android:windowFullscreen">true</item>
+		<item name="android:windowContentOverlay">@null</item>
+		<item name="android:windowActionBar">true</item>
+	</style>
 </resources>

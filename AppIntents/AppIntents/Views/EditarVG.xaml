@@ -4,25 +4,25 @@
              xmlns:vm="clr-namespace:AppIntents.ViewModels" 
              xmlns:m="clr-namespace:AppIntents.Models"
              x:Class="AppIntents.Views.EditarVG"
-             Title="Agregar nuevo videojuego...">
+             Title="Editar videojuego...">
     <ContentPage.BindingContext>
         <vm:VideoGamesViewModel x:Name="nvm"/>
     </ContentPage.BindingContext>
     <ContentPage.ToolbarItems>
-        <ToolbarItem IconImageSource="cherckmark.png" Command="{Binding EditarCommand}"/>
+        <ToolbarItem IconImageSource="checkmark.png" Command="{Binding EditarCommand}"/>
     </ContentPage.ToolbarItems>
     <ContentPage.Content>
         <StackLayout Margin="10">
-            <Frame BackgroundColor="#febf10"  BorderColor="{AppThemeBinding Dark=#00000, Light=#454545}">
+            <Frame BackgroundColor="#3d3d3d"  BorderColor="{AppThemeBinding Dark=#00000, Light=#454545}">
                 <StackLayout>
-                    <Entry Grid.Row="0" TextColor="#000000" Placeholder="Título de la nota..." 
-                           PlaceholderColor="#616168" Text="{Binding VideoGame.NombreVg}" ></Entry>
-                    <Entry Grid.Row="0" TextColor="#000000" Placeholder="Título de la nota..." 
-                           PlaceholderColor="#616168" Text="{Binding VideoGame.DescripcionVg}" ></Entry>
-                    <Entry Grid.Row="0" TextColor="#000000" Placeholder="Título de la nota..." 
-                           PlaceholderColor="#616168" Text="{Binding VideoGame.PortadaVg}" ></Entry>
-                    <DatePicker Date="{Binding VideoGame.FechaSalidaVg}"></DatePicker>
-
+                    <Entry Grid.Row="0" TextColor="#FFFFFF" Placeholder="Título del videojuego..." 
+                           PlaceholderColor="#a0a0a0" Text="{Binding VideoGame.NombreVg}" MaxLength="60"></Entry>
+                    <Editor Grid.Row="0" TextColor="#FFFFFF"  Placeholder="Descripcion del videojuego..." 
+                           PlaceholderColor="#a0a0a0" Text="{Binding VideoGame.DescripcionVg}" HeightRequest="200" MaxLength="180"></Editor>
+                    <DatePicker Date="{Binding VideoGame.FechaSalidaVg}" MinimumDate="{Binding MinDate}" MaximumDate="{Binding MaxDate}"></DatePicker>
+                    <Entry Grid.Row="0" TextColor="#FFFFFF" Placeholder="URL de la portada" 
+                           PlaceholderColor="#a0a0a0" Text="{Binding VideoGame.PortadaVg}" ></Entry>
+                    <Label HorizontalTextAlignment="Center" TextColor="#a0a0a0" Text="Nota: Es recomendable usar una imagen con aspecto 4:3"></Label>
                     <StackLayout Grid.Row="2" BindableLayout.ItemsSource="{Binding Errors}" 
                                  HorizontalOptions="Center">
                         <BindableLayout.ItemTemplate>

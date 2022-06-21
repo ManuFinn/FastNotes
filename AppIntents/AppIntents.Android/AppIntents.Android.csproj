@@ -82,6 +82,7 @@
     <Compile Include="Resources\Resource.designer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SnackBar_Android.cs" />
+    <Compile Include="SplashActivity.cs" />
     <Compile Include="Toast_Android.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -106,7 +107,9 @@
     <AndroidResource Include="Resources\mipmap-xxxhdpi\icon.png" />
     <AndroidResource Include="Resources\mipmap-xxxhdpi\launcher_foreground.png" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable\checkmark.png" />
+  </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\AppIntents\AppIntents.csproj">
       <Project>{77527E25-AF06-4449-B416-1A81B4E21DC5}</Project>
@@ -158,6 +161,9 @@
       <Generator>MSBuild:UpdateGeneratedFiles</Generator>
       <SubType>Designer</SubType>
     </AndroidResource>
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable\splash_screen.xml" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\Android\Xamarin.Android.CSharp.targets" />
 </Project>
