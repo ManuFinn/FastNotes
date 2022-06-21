@@ -20,7 +20,7 @@
                            PlaceholderColor="#a0a0a0" Text="{Binding VideoGame.NombreVg}" MaxLength="60"></Entry>
                     <Editor Grid.Row="0" TextColor="#FFFFFF"  Placeholder="Descripcion del videojuego..." 
                            PlaceholderColor="#a0a0a0" Text="{Binding VideoGame.DescripcionVg}" HeightRequest="200" MaxLength="180"></Editor>
-                    <DatePicker Date="{Binding VideoGame.FechaSalidaVg}" MinimumDate="{Binding MinDate}" MaximumDate="{Binding MaxDate}"></DatePicker>
+                    <DatePicker TextColor="#FFFFFF" Date="{Binding VideoGame.FechaSalidaVg}" MinimumDate="{Binding MinDate}" MaximumDate="{Binding MaxDate}"></DatePicker>
                     <Entry Grid.Row="0" TextColor="#FFFFFF" Placeholder="URL de la portada" 
                            PlaceholderColor="#a0a0a0" Text="{Binding VideoGame.PortadaVg}" ></Entry>
                     <Label HorizontalTextAlignment="Center" TextColor="#a0a0a0" Text="Nota: Es recomendable usar una imagen con aspecto 4:3"></Label>

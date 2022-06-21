@@ -30,8 +30,11 @@
                         <Frame Padding="0">
                             <StackLayout Orientation="Horizontal" Spacing="0">
 
+                                <Grid WidthRequest="300">
+                                    <Image HeightRequest="100" WidthRequest="100" Aspect="Fill" Source="no.png"/>
                                     <Image HeightRequest="100" WidthRequest="100" Aspect="Fill" Source="{Binding PortadaVg}"/>
-                                    <Label Grid.Column="1" HorizontalTextAlignment="Center" VerticalTextAlignment="Center" 
+                                </Grid>
+                                <Label Grid.Column="1" HorizontalTextAlignment="Center" VerticalTextAlignment="Center" 
                                        BackgroundColor="#3d3d3d" FontAttributes="Bold" FontSize="Large" WidthRequest="1000" TextColor="#FFFFFF" Text="{Binding NombreVg}"/>
                             </StackLayout>
                         </Frame>
