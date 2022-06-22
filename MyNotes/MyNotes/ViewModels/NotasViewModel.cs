@@ -2,6 +2,7 @@
 using MyNotes.Models;
 using MyNotes.Services;
 using MyNotes.Views;
+using Plugin.LatestVersion;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -110,10 +111,24 @@ namespace MyNotes.ViewModels
             await Application.Current.MainPage.Navigation.PushAsync(vistaEditar);
         }
 
-        private void verInfo()
+        private async void verInfo()
         {
             vistaInfo = new InfoView();
-            Application.Current.MainPage.Navigation.PushAsync(vistaInfo);
+            await Application.Current.MainPage.Navigation.PushAsync(vistaInfo);
+
+
+            var isLatest = await CrossLatestVersion.Current.IsUsingLatestVersion();
+
+            if (!isLatest)
+            {
+                var update = await Application.Current.MainPage.DisplayAlert("New Version", "There is a new version of this app available. Would you like to update now?", "Yes", "No");
+
+                if (update)
+                {
+                    await CrossLatestVersion.Current.OpenAppInStore();
+                }
+            }
+
         }
 
         private async void Agregar()

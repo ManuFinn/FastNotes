@@ -8,6 +8,8 @@ using System.Threading.Tasks;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
+using Plugin.LatestVersion;
+
 namespace MyNotes.Views
 {
     [XamlCompilation(XamlCompilationOptions.Compile)]
@@ -15,7 +17,10 @@ namespace MyNotes.Views
     {
         public InfoView()
         {
+            
+
             InitializeComponent();
+            //var isLatest = await CrossLatestVersion.Current
         }
 
         private void Button_Clicked(object sender, EventArgs e)

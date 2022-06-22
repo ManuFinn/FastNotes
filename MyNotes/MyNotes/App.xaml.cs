@@ -3,6 +3,7 @@ using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 using MyNotes.Models;
 using MyNotes.Services;
+using MarcTron.Plugin.Controls;
 
 [assembly: ExportFont("LDFComicSans.otf", Alias = "ComicSans")]
 namespace MyNotes
@@ -16,7 +17,7 @@ namespace MyNotes
         {
             InitializeComponent();
 
-
+            MTAdView ads = new MTAdView();
 
             Sincronizador = new SincronizadorServices(Lista);
 
