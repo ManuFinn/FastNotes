@@ -4,7 +4,7 @@
              xmlns:vm="clr-namespace:MyNotes.ViewModels"
              xmlns:controls="clr-namespace:MarcTron.Plugin.Controls;assembly=Plugin.MtAdmob"
              x:Class="MyNotes.Views.NotasView"
-             Title="Notes io" BackgroundColor="#FFFFFF" >
+             Title="Notes io" BackgroundColor="#000000" >
     <ContentPage.BindingContext>
         <vm:NotasViewModel x:Name="nvm"/>
     </ContentPage.BindingContext>
@@ -38,7 +38,7 @@
                 </DataTemplate>
             </CollectionView.ItemTemplate>
         </CollectionView>
-        <controls:MTAdView HeightRequest="50" AdsId="ca-app-pub-5686190831281628/7719897051"/>
+        <controls:MTAdView HeightRequest="50" AdsId="ca-app-pub-3940256099942544/6300978111"/>
     </StackLayout>
 
 </ContentPage>

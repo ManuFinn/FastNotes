@@ -20,6 +20,7 @@
                         <Label FontSize="Subtitle" Text="Aplicacion creada por Jean Muñoz"/>
                         <Label Text="Notes io es una aplicación de creación de notas anónimas en la que cualquier persona puede participar, no es recomendable escribir información confidencial o personal debido que estará a la vista de otras personas, en caso de ignorar esta indicación puede borrar la nota en cualquier momento"/>
                         <Label VerticalOptions="EndAndExpand" Text="Puedes apoyarme presionando el siguiente botón que se generara un video, estaría muy agradecido si lo vieras completo, gracias."/>
+                        <Button VerticalOptions="End" Clicked="Button_Clicked" Text="Verficar actualizaciones"></Button>
                         <Button VerticalOptions="End" Clicked="Button_Clicked" Text="Apoyar al creador..."></Button>
                     </StackLayout>
                 </Grid>

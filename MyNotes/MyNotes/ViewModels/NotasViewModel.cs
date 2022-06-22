@@ -44,6 +44,7 @@ namespace MyNotes.ViewModels
         public Command EliminarCommand { get; set; }
         public Command CancelarCommand { get; set; }
         public Command InfoCommand { get; set; }
+        public Command VerficicarUpdatesCommand { get; set; }
 
         public Command apoyoAnuncioCommand { get; set; }
 
@@ -57,10 +58,26 @@ namespace MyNotes.ViewModels
             VistaEditarCommand = new Command(VerEditarAsync);
             InfoCommand = new Command(verInfo);
             //apoyoAnuncioCommand = new Command(mostrarApoyo);
+            VerficicarUpdatesCommand = new Command(VerificarUpdates);
 
 
             SincronizadorServices.ActuializacionRealizada += SincronizadorService_ActualizacionRealizada;
             SincronizadorService_ActualizacionRealizada();
+        }
+
+        private async void VerificarUpdates()
+        {
+            var isLatest = await CrossLatestVersion.Current.IsUsingLatestVersion();
+
+            if (!isLatest)
+            {
+                var update = await Application.Current.MainPage.DisplayAlert("New Version", "There is a new version of this app available. Would you like to update now?", "Yes", "No");
+
+                if (update)
+                {
+                    await CrossLatestVersion.Current.OpenAppInStore();
+                }
+            }
         }
 
         private void SincronizadorService_ActualizacionRealizada()
@@ -115,19 +132,6 @@ namespace MyNotes.ViewModels
         {
             vistaInfo = new InfoView();
             await Application.Current.MainPage.Navigation.PushAsync(vistaInfo);
-
-
-            //var isLatest = await CrossLatestVersion.Current.IsUsingLatestVersion();
-
-            //if (!isLatest)
-            //{
-            //    var update = await Application.Current.MainPage.DisplayAlert("New Version", "There is a new version of this app available. Would you like to update now?", "Yes", "No");
-
-            //    if (update)
-            //    {
-            //        await CrossLatestVersion.Current.OpenAppInStore();
-            //    }
-            //}
 
         }
 
