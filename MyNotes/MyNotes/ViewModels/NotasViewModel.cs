@@ -57,12 +57,18 @@ namespace MyNotes.ViewModels
             VistaAgregarCommand = new Command(VerAgregarAsync);
             VistaEditarCommand = new Command(VerEditarAsync);
             InfoCommand = new Command(verInfo);
-            //apoyoAnuncioCommand = new Command(mostrarApoyo);
+            apoyoAnuncioCommand = new Command(mostrarApoyo);
             VerficicarUpdatesCommand = new Command(VerificarUpdates);
 
 
             SincronizadorServices.ActuializacionRealizada += SincronizadorService_ActualizacionRealizada;
             SincronizadorService_ActualizacionRealizada();
+        }
+
+        private void mostrarApoyo()
+        {
+            CrossMTAdmob.Current.LoadRewardedVideo("ca-app-pub-3940256099942544/5224354917");
+            CrossMTAdmob.Current.ShowRewardedVideo();
         }
 
         private async void VerificarUpdates()
@@ -71,7 +77,7 @@ namespace MyNotes.ViewModels
 
             if (!isLatest)
             {
-                var update = await Application.Current.MainPage.DisplayAlert("New Version", "There is a new version of this app available. Would you like to update now?", "Yes", "No");
+                var update = await Application.Current.MainPage.DisplayAlert("Nueva version disponible", "Hola, existe una nueva version en la PlayStore, te gustaria instalarla?", "Si", "No");
 
                 if (update)
                 {
@@ -114,6 +120,8 @@ namespace MyNotes.ViewModels
 
             Nota = new Notas();
             Errors = null;
+
+            CrossMTAdmob.Current.LoadInterstitial("ca-app-pub-3940256099942544/1033173712");
 
             await Application.Current.MainPage.Navigation.PushAsync(vistaAgregar);
         }

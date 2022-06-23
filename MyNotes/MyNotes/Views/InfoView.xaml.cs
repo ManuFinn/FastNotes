@@ -17,16 +17,8 @@ namespace MyNotes.Views
     {
         public InfoView()
         {
-            
-
             InitializeComponent();
-            //var isLatest = await CrossLatestVersion.Current
         }
 
-        private void Button_Clicked(object sender, EventArgs e)
-        {
-            CrossMTAdmob.Current.ShowRewardedVideo();
-            //CrossMTAdmob.Current.
-        }
     }
 }

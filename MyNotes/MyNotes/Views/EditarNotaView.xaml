@@ -15,8 +15,8 @@
             <Frame BackgroundColor="#febf10"  BorderColor="{AppThemeBinding Dark=#00000, Light=#454545}">
                 <Grid>
                     <Grid.RowDefinitions>
-                        <RowDefinition Height="0.1*" />
-                        <RowDefinition Height="1.85*" />
+                        <RowDefinition Height="0.12*" />
+                        <RowDefinition Height="1.83*" />
                         <RowDefinition Height="0.1*" />
                     </Grid.RowDefinitions>
                     <Entry Grid.Row="0" TextColor="#000000" Placeholder="Título de la nota..." 
