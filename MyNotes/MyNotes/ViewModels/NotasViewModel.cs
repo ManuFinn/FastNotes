@@ -60,6 +60,8 @@ namespace MyNotes.ViewModels
             apoyoAnuncioCommand = new Command(mostrarApoyo);
             VerficicarUpdatesCommand = new Command(VerificarUpdates);
 
+            CrossMTAdmob.Current.LoadInterstitial("ca-app-pub-3940256099942544/1033173712");
+            
 
             SincronizadorServices.ActuializacionRealizada += SincronizadorService_ActualizacionRealizada;
             SincronizadorService_ActualizacionRealizada();
@@ -121,9 +123,10 @@ namespace MyNotes.ViewModels
             Nota = new Notas();
             Errors = null;
 
-            CrossMTAdmob.Current.LoadInterstitial("ca-app-pub-3940256099942544/1033173712");
-
             await Application.Current.MainPage.Navigation.PushAsync(vistaAgregar);
+
+            
+            CrossMTAdmob.Current.ShowInterstitial();
         }
 
         private async void VerEditarAsync(object n)
